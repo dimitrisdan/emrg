@@ -13,25 +13,34 @@ class GuardianController extends Controller
     {
         return view('guardian');
     }
-        
+
+    public function getDeleteGuardian($guardian_id)
+    {
+        $guardian = Guardian::where('guardian_id', $guardian_id)->first();
+        $guardian->delete();
+        return redirect()->route('guardian.delete')->with([
+            'title' => 'success',
+            'message' => 'Successfully deleted guardian'
+        ]);
+    }
 
 
     public function postCreateGuardian(Request $request)
     {
         //Validation
-//        $guardian = new Guardian();
-//        $uuid = Uuid::generate();
-//        $guardian->guardianId = $uuid;
-//        $guardian->guardianRole = 'contact';
-//        $guardian->guardianRole = $request['role'];
-//        $guardian->guardianFirstName = $request['firstname'];
-//        $guardian->guardianSurName = $request['surname'];
-//        $guardian->guardianTelephone = $request['telephone'];
-//        $guardian->guardianEmail = $request['email'];
+        $guardian = new Guardian();
+        $guardian->guardian_role = $request['role'];
+        $guardian->guardian_firstname= $request['firstname'];
+        $guardian->guardian_lastname = $request['lastname'];
+        $guardian->guardian_telephone = $request['telephone'];
+        $guardian->guardian_email = $request['email'];
+        $message = [
+            'title' => 'error',
+            'message' => 'SavingThere was an error'
+        ];
+        $request->patient()->guardian()->save($guardian);
 
-//        $request->patient()->guardian()->save($guardian);
-
-//        return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 
 

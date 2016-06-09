@@ -15,13 +15,16 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
-
+    private function getContact($patient){
+        //return Contact::find($patient->contact_id);
+        return Contact::find($patient->contact_id);
+    }
     public function getDashboard(Request $request)
     {
         $user_id = $request->user()->id;
 
         $patient = Patient::where('user_id', '=', $user_id)->get()->first();
-        $contact = Contact::find($patient->contact_id);
+        $contact = $this->getContact($patient);
         $guardian = Patient::find($user_id)->guardian()->get()->first();
         $allergies = Patient::find($user_id)->allergies()->get();
         $medicals = Patient::find($user_id)->medicalAlerts()->get();

@@ -39,6 +39,11 @@
 
 Route::group(['middleware' => 'web'], function () {
 
+    /*
+    |--------------------------------------------------------------------------
+    | Core Routes
+    |--------------------------------------------------------------------------
+    */
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
@@ -47,37 +52,75 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@postSignUp',
         'as' => 'signup'
     ]);
-
     Route::post('/signin', [
         'uses' => 'UserController@postSignIn',
         'as' => 'signin'
     ]);
-
     Route::get('/logout', [
         'uses' => 'UserController@getLogout',
         'as' => 'logout'
     ]);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Routes
+    |--------------------------------------------------------------------------
+    */
     Route::get('/dashboard', [
         'uses' => 'PatientController@getDashboard',
         'as' => 'dashboard',
         'middleware' => 'auth'
     ]);
 
-
-    Route::post('/patient', [
+    /*
+    |--------------------------------------------------------------------------
+    | Patient Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::post('/create-patient', [
         'uses' => 'PatientController@postCreatePatient',
-        'as' => 'patient.create'
+        'as' => 'patient.create',
+        'middleware' => 'auth'
     ]);
 
-    Route::post('/contact', [
-        'uses' => 'ContactController@postCreateContact',
-        'as' => 'contact.create'
+    Route::get('/delete-patient', [
+        'uses' => 'ContactController@getDeleteContact',
+        'as' => 'contact.create',
+        'middleware' => 'auth'
     ]);
     
-    Route::post('/guardian', [
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Routes
+    |--------------------------------------------------------------------------
+    */
+    
+    Route::post('/create-contact', [
+        'uses' => 'ContactController@postCreateContact',
+        'as' => 'contact.create',
+        'middleware' => 'auth'
+    ]);
+
+    Route::get('/delete-contact', [
+        'uses' => 'ContactController@getDeleteContact',
+        'as' => 'contact.create',
+        'middleware' => 'auth'
+    ]);
+    /*
+    |--------------------------------------------------------------------------
+    | Guardian Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::post('/create-guardian', [
         'uses' => 'GuardianController@postCreateGuardian',
-        'as' => 'guardian.create'
+        'as' => 'guardian.create',
+        'middleware' => 'auth'
+    ]);
+
+    Route::get('/delete-guardian', [
+        'uses' => 'GuardianController@getDeleteGuardian',
+        'as' => 'guardian.delete',
+        'middleware' => 'auth'
     ]);
 
     Route::get('/guardian', [
@@ -86,21 +129,26 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'auth'
     ]);
 
-//    Route::get('/', function () {
-//        return view('auth.login');
-//    })->middleware('guest');
+    /*
+    |--------------------------------------------------------------------------
+    | Allergy Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::post('/create-allergy', [
+        'uses' => 'GuardianController@postCreateGuardian',
+        'as' => 'guardian.create',
+        'middleware' => 'auth'
+    ]);
 
-//    Route::get('/home', 'HomeController@index');
-//    Route::get('/home', 'HomeController@index');
+    Route::get('/delete-allergy', [
+        'uses' => 'GuardianController@getDeleteGuardian',
+        'as' => 'guardian.delete',
+        'middleware' => 'auth'
+    ]);
 
-//    Route::get('user/{id}', 'UserController@showProfile');
-    
-
-//    Route::auth();
-
-
-
-    
-
-//    Route::get('/patient', 'PatientController@index');
+    Route::get('/allergy', [
+        'uses' => 'AllergyController@getCreateGuardian',
+        'as' => 'guardian.new',
+        'middleware' => 'auth'
+    ]);
 });

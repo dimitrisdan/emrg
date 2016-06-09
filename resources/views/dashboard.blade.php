@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+@include('includes.message-block')
+
 @section('content')
-<?php $i=0; ?>
+
+    <?php $i=0; ?>
     <div class="row">
         <div class="col-md-8">
             <div class="panel panel-success">
@@ -81,7 +84,7 @@
                                 <td>{{ $agents[$i++]['allergyAgentDescription']}}</td>
                                 <td>{{ $allergy->allergyDescription }}</td>
                                 <td>{{ $allergy->allergyOnsetDate }}</td>
-                                <td><a href="#">
+                                <td><a href="{{ route('allergy.delete', [ 'allergy_id' => $allergy->allergy_id ]) }}">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
@@ -104,7 +107,7 @@
                             <tr>
                                 <td>{{ $medical->medical_alertid }}</td>
                                 <td>{{ $medical->medicalAlertDescr }}</td>
-                                <td><a href="#">
+                                <td><a href="{{ route('medical.delete', [ 'allergy_id' => $allergy->allergy_id ]) }}">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>
