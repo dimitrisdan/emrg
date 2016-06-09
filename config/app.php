@@ -91,7 +91,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY','P2PnArHIfoWIno3F2c8WvTQrK5XPPcTp'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -201,6 +201,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'aliases' => [
+            // ommited
+            'Uuid' => Webpatser\Uuid\Uuid::class,
+        ]
 
     ],
 

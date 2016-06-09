@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - ehrdb@localhost" uuid="0d208038-32b2-44ef-9050-7391c47e4437">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>ehrdb.*</schema-pattern>
+      <default-schemas>ehrdb.*</default-schemas>
+    </data-source>
+  </component>
+</project>
