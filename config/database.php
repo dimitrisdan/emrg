@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,12 +46,6 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver'   => 'sqlite',
-            'database' => database_path('database.sqlite'),
-            'prefix'   => '',
-        ],
-
 //        'mysql' => [
 //            'driver'    => 'mysql',
 //            'host'      => env('DB_HOST', 'eu-cdbr-azure-north-e.cloudapp.net'),
@@ -68,7 +62,6 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
-            'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'ehrdb'),
             'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', 'root'),
@@ -78,18 +71,7 @@ return [
             'strict'    => false,
             'engine'    => null,
         ],
-
-        'pgsql' => [
-            'driver'   => 'pgsql',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
-        ],
-
+        
         'sqlsrv' => [
             'driver'   => 'sqlsrv',
             'host'     => env('DB_HOST', 'localhost'),
