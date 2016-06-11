@@ -3,7 +3,6 @@
 /public/storage
 /public/web.config
 /public/_web.config
-
 Homestead.yaml
 Homestead.json
 .env
