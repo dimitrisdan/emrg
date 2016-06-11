@@ -22,18 +22,18 @@ class CreatePatientmedicalsTable extends Migration
             $table->foreign('medical_alertid')->references('medical_alertid')->on('medicalAlerts');
         });
 
-        DB::table('patientToMedicalAlerts')->insert(
-            array(
-                'patient_id' => 1,
-                'medical_alertid' => 1,
-            )
-        );
-        DB::table('patientToMedicalAlerts')->insert(
-            array(
-                'patient_id' => 2,
-                'medical_alertid' => 2,
-            )
-        );
+//        DB::table('patientToMedicalAlerts')->insert(
+//            array(
+//                'patient_id' => 1,
+//                'medical_alertid' => 1,
+//            )
+//        );
+//        DB::table('patientToMedicalAlerts')->insert(
+//            array(
+//                'patient_id' => 2,
+//                'medical_alertid' => 2,
+//            )
+//        );
     }
 
     /**

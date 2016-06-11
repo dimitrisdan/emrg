@@ -22,31 +22,31 @@ class CreatePatientallergiesTable extends Migration
             $table->foreign('allergy_id')->references('allergy_id')->on('allergys');
         });
 
-        DB::table('patientToAllergyAlerts')->insert(
-            array(
-                'patient_id' => 1,
-                'allergy_id' => 1,
-            )
-        );
-
-        DB::table('patientToAllergyAlerts')->insert(
-            array(
-                'patient_id' => 2,
-                'allergy_id' => 2,
-            )
-        );
-        DB::table('patientToAllergyAlerts')->insert(
-            array(
-                'patient_id' => 3,
-                'allergy_id' => 3,
-            )
-        );
-        DB::table('patientToAllergyAlerts')->insert(
-            array(
-                'patient_id' => 3,
-                'allergy_id' => 2,
-            )
-        );
+//        DB::table('patientToAllergyAlerts')->insert(
+//            array(
+//                'patient_id' => 1,
+//                'allergy_id' => 1,
+//            )
+//        );
+//
+//        DB::table('patientToAllergyAlerts')->insert(
+//            array(
+//                'patient_id' => 2,
+//                'allergy_id' => 2,
+//            )
+//        );
+//        DB::table('patientToAllergyAlerts')->insert(
+//            array(
+//                'patient_id' => 3,
+//                'allergy_id' => 3,
+//            )
+//        );
+//        DB::table('patientToAllergyAlerts')->insert(
+//            array(
+//                'patient_id' => 3,
+//                'allergy_id' => 2,
+//            )
+//        );
     }
 
     /**
