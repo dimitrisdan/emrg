@@ -17,16 +17,16 @@ class UserController extends Controller
     public function postSignUp(Request $request)
     {
         echo 'ap';
-//        $this->validate($request,[
-//            'email' => 'required|email|unique:users',
-//            'name' => 'required|max:100',
-//            'password' => 'required|min:6'
-//        ]);
-//
-//        $user = new User();
-//        $user->email = $request['email'];
-//        $user->name = $request['name'];
-//        $user->password = bcrypt($request['password']);
+        $this->validate($request,[
+            'email' => 'required|email|unique:users',
+            'name' => 'required|max:100',
+            'password' => 'required|min:6'
+        ]);
+
+        $user = new User();
+        $user->email = $request['email'];
+        $user->name = $request['name'];
+        $user->password = bcrypt($request['password']);
 //
 //        Auth::login($user);
 //
