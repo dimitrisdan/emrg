@@ -54,17 +54,30 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'ehrdb'),
-            'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', 'root'),
+            'host'      => env('DB_HOST', 'eu-cdbr-azure-north-e.cloudapp.net'),
+            'database'  => env('DB_DATABASE', 'emrg'),
+            'username'  => env('DB_USERNAME', 'bac146f297a4ae'),
+            'password'  => env('DB_PASSWORD', 'b5ab6ec2'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
             'strict'    => false,
             'engine'    => null,
         ],
+
+//        'mysql' => [
+//            'driver'    => 'mysql',
+//            'host'      => env('DB_HOST', 'localhost'),
+//            'host'      => env('DB_HOST', 'localhost'),
+//            'database'  => env('DB_DATABASE', 'ehrdb'),
+//            'username'  => env('DB_USERNAME', 'root'),
+//            'password'  => env('DB_PASSWORD', 'root'),
+//            'charset'   => 'utf8',
+//            'collation' => 'utf8_unicode_ci',
+//            'prefix'    => '',
+//            'strict'    => false,
+//            'engine'    => null,
+//        ],
 
         'pgsql' => [
             'driver'   => 'pgsql',
