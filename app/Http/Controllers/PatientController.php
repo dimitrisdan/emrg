@@ -43,7 +43,7 @@ class PatientController extends Controller
         if(!patientExists($user_id))
         {
             echo 'patient doesn\'t exist';
-//            $patient =$this->createPatient();
+//            $patient = $this->createPatient();
         }
 
 //        $contact = $this->getContact($patient);
