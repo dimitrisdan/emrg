@@ -19,4 +19,15 @@ class AllergyController extends Controller
             'message' => 'Successfully deleted allergy'
         ]);
     }
+
+    public function postCreateAllergy(Request $request)
+    {
+        //Validation
+        $message = [
+            'title' => 'error',
+            'message' => 'There was an error while deleting the allergy'
+        ];
+
+        return redirect()->route('dashboard')->with([$message]);
+    }
 }

@@ -8,25 +8,36 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Webpatser\Uuid\Uuid;
 
+
+
 class ContactController extends Controller
 {
-    public function postCreateGuardian(Request $request)
+    public function getDeleteContact($contact_id)
+    {
+        $contact = Contact::where('contact_id', $contact_id)->first();
+        $contact->delete();
+        return redirect()->route('contact.delete')->with([
+            'status' => 1,
+            'message' => 'Successfully deleted contact'
+        ]);
+    }
+
+
+    public function postCreateContact(Request $request)
     {
         //Validation
-//        $contact = new Contact();
-//        $uuid = Uuid::generate();
-//        $contact->contactId = $uuid;
-//        $contact->contactStreet = $request['street'];
-//        $contact->contactHouseNumber = $request['number'];
-//        $contact->contactCity = $request['city'];
-//        $contact->contactPostCode = $request['post_code'];
-//        $contact->contactState = $request['state'];
-//        $contact->contactCountry = $request['country'];
-//        $contact->contactEmail = $request['email'];
-//        $contact->contactHPId = $request['hpid'];
+        $contact = new Contact();
+        $contact->contact_street = $request['street'];
+        $contact->contact_number = $request['number'];
+        $contact->contact_city = $request['city'];
+        $contact->contact_postcode = $request['post_code'];
+        $contact->contact_state = $request['state'];
+        $contact->contact_country = $request['country'];
+        $contact->contact_email = $request['email'];
+        $contact->contact_hpid = $request['hpid'];
 
-//        $request->patient()->contact()->save($contact);
+        $request->patient()->contact()->save($contact);
 
-//        return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 }
