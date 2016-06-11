@@ -21,12 +21,12 @@ class CreatePatientsTable extends Migration
             $table->integer('contact_id')->unsigned();
             $table->integer('guardian_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('patientNationalId')->nullable();
-            $table->string('patientFirstName')->nullable();
-            $table->string('patientSurName')->nullable();
-            $table->string('patientDob')->nullable();
-            $table->string('patientGender')->nullable();
-            $table->string('patientInsuranceNumber')->nullable();
+            $table->string('patient_nationalid')->nullable();
+            $table->string('patient_firstname')->nullable();
+            $table->string('patient_lastname')->nullable();
+            $table->string('patient_dob')->nullable();
+            $table->string('patient_gender')->nullable();
+            $table->string('patient_insurance')->nullable();
             $table->timestamps();
             # Foreign Keys
             $table->foreign('user_id')->references('id')->on('users');
@@ -40,12 +40,12 @@ class CreatePatientsTable extends Migration
                 'contact_id' => 1,
                 'guardian_id' => 1,
                 'user_id' => 1,
-                'patientNationalId' => rand(100000000000,999999999999),
-                'patientFirstName' => 'Dimitris',
-                'patientSurName' => 'Danampasis',
-                'patientDob' => '02/04/1986',
-                'patientGender' => 'Male',
-                'patientInsuranceNumber' => 'AB666666'
+                'patient_nationalid' => rand(100000000000,999999999999),
+                'patient_firstname' => 'Dimitris',
+                'patient_lastname' => 'Danampasis',
+                'patient_dob' => '02/04/1986',
+                'patient_gender' => 'Male',
+                'patient_insurance' => 'AB666666'
             )
         );
         DB::table('patients')->insert(
@@ -54,12 +54,12 @@ class CreatePatientsTable extends Migration
                 'contact_id' => 2,
                 'guardian_id' => 2,
                 'user_id' => 2,
-                'patientNationalId' => rand(100000000000,999999999999),
-                'patientFirstName' => 'Olga',
-                'patientSurName' => 'Triantou',
-                'patientDob' => '02/04/1956',
-                'patientGender' => 'Female',
-                'patientInsuranceNumber' => 'AB555555'
+                'patient_nationalid' => rand(100000000000,999999999999),
+                'patient_firstname' => 'Olga',
+                'patient_lastname' => 'Triantou',
+                'patient_dob' => '02/04/1956',
+                'patient_gender' => 'Female',
+                'patient_insurance' => 'AB555555'
             )
         );
         DB::table('patients')->insert(
@@ -68,12 +68,12 @@ class CreatePatientsTable extends Migration
                 'contact_id' => 3 ,
                 'guardian_id' => 3,
                 'user_id' => 3,
-                'patientNationalId' => rand(100000000000,999999999999),
-                'patientFirstName' => 'Tina',
-                'patientSurName' => 'Mpitouni',
-                'patientDob' => '02/04/1986',
-                'patientGender' => 'Female',
-                'patientInsuranceNumber' => 'AB222222'
+                'patient_nationalid' => rand(100000000000,999999999999),
+                'patient_firstname' => 'Tina',
+                'patient_lastname' => 'Mpitouni',
+                'patient_Dob' => '02/04/1986',
+                'patient_gender' => 'Female',
+                'patient_insurance' => 'AB222222'
             )
         );
     }
@@ -85,6 +85,16 @@ class CreatePatientsTable extends Migration
      */
     public function down()
     {
+        Schema::table('patients', function($table)
+        {
+            $table->dropForeign('patients_user_id_foreign');
+            $table->dropColumn('user_id');
+//            $table->dropForeign('patients_user_id_foreign');
+//            $table->dropColumn('guardian_id');
+//            $table->dropForeign('patients_user_id_foreign');
+//            $table->dropColumn('contact_id');
+
+        });
         Schema::drop('patients');
     }
 }
