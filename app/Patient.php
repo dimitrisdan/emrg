@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 
 /**
- * @property mixed patientId
+ * @property integer patient_id
+ * @property integer contact_id
+ * @property integer guardian_id
+ * @property integer user_id
+ * @property string patient_nationalid
+ * @property string patient_dob
+ * @property string patient_insurance
+ * @property string patient_gender
  */
 class Patient extends Model
 {
@@ -14,9 +21,9 @@ class Patient extends Model
     public $incrementing = true;
     public $timestamps = true;
 
-//    protected $fillable = [
-//        'patientId','contactId','guardianId','userId','patientNationalId','patientFirstName','patientSurName','patientDob','patientInsuranceNumber','patientGender'
-//    ];
+    protected $fillable = [
+        'patient_id','contact_id','guardian_id','user_id','patient_nationalid','patient_dob','patient_insurance','patient_gender'
+    ];
 
 //    private $patient;
 //
@@ -26,7 +33,7 @@ class Patient extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User','id','user_id');
+        return $this->hasOne('App\User','user_id', 'id');
     }
     public function contact()
     {

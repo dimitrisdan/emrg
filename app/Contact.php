@@ -5,7 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property Contact contact
+ * @property integer contact_id
+ * @property string contact_street
+ * @property string contact_number
+ * @property string contact_city
+ * @property string contact_postcode
+ * @property string contact_state
+ * @property string contact_country
+ * @property string contact_hpid
  */
 class Contact extends Model
 {
@@ -13,14 +20,10 @@ class Contact extends Model
     protected $primaryKey = 'contact_id';
     public $timestamps = true;
 
-//    protected $fillable = [
-//        'contactId','contactStreet','contactHouseNumber','contactCity','contactPostCode','contactState','contactCountry','contactEmail','contactHPId'
-//    ];
+    protected $fillable = [
+        'contact_id','contact_street','contact_number','contact_city','contact_postcode','contact_state','contact_country','contact_hpid'
+    ];
 
-
-//    public function __construct(Contact $contact){
-//        $this->contact = $contact;
-//    }
 
     public function patient()
     {

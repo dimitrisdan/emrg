@@ -9,15 +9,21 @@
     @include('includes.message-block')
     <div class="row">
         <div class="col-md-4 col-md-offset-2">
+
             <h3>Sign Up</h3>
+
             <form class="form-group" action="{{ route('signup') }}" method="post">
                 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                     <label for="email">Your E-Mail</label>
                     <input class="form-control" type="email" name="email" id="email" value="{{ Request::old('email') }}">
                 </div>
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <label for="first_name">Your Name</label>
-                    <input class="form-control" type="text" name="name" id="first_name" value="{{ Request::old('name') }}">
+                    <label for="last_name">First Name</label>
+                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ Request::old('name') }}">
+                </div>
+                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                    <label for="first_name">Last Name</label>
+                    <input class="form-control" type="text" name="first_name" id="first_name" value="{{ Request::old('name') }}">
                 </div>
                 <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                     <label for="password">Your password</label>

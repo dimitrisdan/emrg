@@ -7,5 +7,9 @@
       <schema-pattern>ehrdb.*</schema-pattern>
       <default-schemas>ehrdb.*</default-schemas>
     </data-source>
+    <data-source name="MySQL - emrg@eu-cdbr-azure-north-e.cloudapp.net" uuid="58275f4d-2ecc-44c3-ba5e-e3f25a0e6b56">
+      <secret-storage>master_key</secret-storage>
+      <user-name>bac146f297a4ae</user-name>
+    </data-source>
   </component>
 </project>
