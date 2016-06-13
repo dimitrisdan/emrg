@@ -24,15 +24,32 @@
             margin-right: 6px;
         }
     </style>
+
 </head>
 <body id="app-layout">
 
     @include('layouts.navbar')
 
+
     <div class="container">
+        @include('includes.message-block')
         @yield('content')
     </div>
     <!-- JavaScripts -->
+    <script>
+        $('#idTourDateDetails').datepicker({
+            dateFormat: 'dd-mm-yy',
+            minDate: '+5d',
+            changeMonth: true,
+            changeYear: true,
+            altField: "#idTourDateDetailsHidden",
+            altFormat: "yy-mm-dd"
+        });
+
+        $(function () {
+            $('#patient_dob').datetimepicker();
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

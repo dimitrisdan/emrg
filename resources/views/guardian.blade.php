@@ -16,33 +16,33 @@
                         <div class="form-group">
                             <label for="role">Guardian's Role</label>
                             <select class="form-control" name="role" id="role" style="width:100px;">
-                                <option value="legal">Legal</option>
+                                <option value="legal">Legal: </option>
                                 <option value="contact">Contact</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="firstname">First Name</label>
-                            <input class="form-control" type="text" name="firstname" id="firstname" >
+                            <label for="firstname">First Name: </label>
+                            <input class="form-control" type="text" name="firstname" id="firstname">
                         </div>
 
                         <div class="form-group">
-                            <label for="surname">Last Name</label>
-                            <input class="form-control" type="text" name="surname" id="surname" >
+                            <label for="lastname">Last Name: </label>
+                            <input class="form-control" type="text" name="lastname" id="lastname" value="">
                         </div>
 
                         <div class="form-group">
-                            <label for="telephone">Telephone</label>
-                            <input class="form-control" type="text" name="telephone" id="telephone" >
+                            <label for="telephone">Telephone: </label>
+                            <input class="form-control" type="text" name="telephone" id="telephone" value="">
                         </div>
 
                         <div class="form-group">
-                            <label for="email">E-Mail</label>
-                            <input class="form-control" type="email" name="email" id="email" >
+                            <label for="email">E-Mail: </label>
+                            <input class="form-control" type="email" name="email" id="email" value="{{ $guardian->guardian_email }}">
                         </div>
 
                         <input type="hidden" name="_token" value="{{ Session::token() }}">
                         {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-                        <button type="submit" class="btn btn-primary">Create Guardian</button>
+                        <button type="submit" class="btn btn-primary">Edit Guardian</button>
                     </form>
                 </div>
             </div>

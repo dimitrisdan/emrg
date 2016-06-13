@@ -25,9 +25,7 @@
 //
 //Route::group(['middleware' => ['web']], function () {
 //
-//    Route::get('/', function () {
-//        return view('auth.login');
-//    })->middleware('guest');
+
 //
 //    Route::get('/tasks', 'TaskController@index');
 //    Route::post('/task', 'TaskController@store');
@@ -46,7 +44,11 @@ Route::group(['middleware' => 'web'], function () {
     */
     Route::get('/', function () {
         return view('welcome');
-    })->name('home');
+    })->middleware('guest');
+
+//    Route::get('/', function () {
+//        return view('welcome');
+//    })->name('home');
 
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
@@ -83,9 +85,15 @@ Route::group(['middleware' => 'web'], function () {
         'middleware' => 'auth'
     ]);
 
+    Route::post('/update-patient', [
+        'uses' => 'PatientController@postUpdatePatient',
+        'as' => 'patient.update',
+        'middleware' => 'auth'
+    ]);
+
     Route::get('/delete-patient', [
         'uses' => 'ContactController@getDeleteContact',
-        'as' => 'contact.create',
+        'as' => 'contact.delete',
         'middleware' => 'auth'
     ]);
     
@@ -95,9 +103,9 @@ Route::group(['middleware' => 'web'], function () {
     |--------------------------------------------------------------------------
     */
     
-    Route::post('/create-contact', [
-        'uses' => 'ContactController@postCreateContact',
-        'as' => 'contact.create',
+    Route::post('/update-contact', [
+        'uses' => 'ContactController@postUpdateContact',
+        'as' => 'contact.update',
         'middleware' => 'auth'
     ]);
 
@@ -111,9 +119,9 @@ Route::group(['middleware' => 'web'], function () {
     | Guardian Routes
     |--------------------------------------------------------------------------
     */
-    Route::post('/create-guardian', [
-        'uses' => 'GuardianController@postCreateGuardian',
-        'as' => 'guardian.create',
+    Route::post('/update-guardian', [
+        'uses' => 'GuardianController@postUpdateGuardian',
+        'as' => 'guardian.update',
         'middleware' => 'auth'
     ]);
 
@@ -135,20 +143,20 @@ Route::group(['middleware' => 'web'], function () {
     |--------------------------------------------------------------------------
     */
     Route::post('/create-allergy', [
-        'uses' => 'GuardianController@postCreateGuardian',
-        'as' => 'guardian.create',
+        'uses' => 'AllergyController@postCreateAllergy',
+        'as' => 'allergy.create',
         'middleware' => 'auth'
     ]);
 
-    Route::get('/delete-allergy', [
-        'uses' => 'GuardianController@getDeleteGuardian',
-        'as' => 'guardian.delete',
-        'middleware' => 'auth'
-    ]);
-
-    Route::get('/allergy', [
-        'uses' => 'AllergyController@getCreateGuardian',
-        'as' => 'guardian.new',
-        'middleware' => 'auth'
-    ]);
+//    Route::get('/delete-allergy', [
+//        'uses' => 'GuardianController@getDeleteGuardian',
+//        'as' => 'guardian.delete',
+//        'middleware' => 'auth'
+//    ]);
+//
+//    Route::get('/allergy', [
+//        'uses' => 'AllergyController@getCreateGuardian',
+//        'as' => 'guardian.new',
+//        'middleware' => 'auth'
+//    ]);
 });

@@ -453,12 +453,12 @@
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="16" parent="3" name="allergy_agentid">
+      <column id="16" parent="3" name="allergy_agent_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="17" parent="3" name="allergyAgentDescription">
+      <column id="17" parent="3" name="allergy_agent_description">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
@@ -469,7 +469,7 @@
         <data-type>timestamp</data-type>
       </column>
       <key id="20" parent="3" name="PRIMARY">
-        <columns>allergy_agentid</columns>
+        <columns>allergy_agent_id</columns>
         <primary>1</primary>
       </key>
       <column id="21" parent="4" name="allergy_id">
@@ -477,16 +477,13 @@
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="22" parent="4" name="allergy_agentid">
-        <mandatory>1</mandatory>
+      <column id="22" parent="4" name="allergy_agent_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="23" parent="4" name="allergyDescription">
-        <mandatory>1</mandatory>
+      <column id="23" parent="4" name="allergy_description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="24" parent="4" name="allergyOnsetDate">
-        <mandatory>1</mandatory>
+      <column id="24" parent="4" name="allergy_onset">
         <data-type>date</data-type>
       </column>
       <column id="25" parent="4" name="created_at">
@@ -495,16 +492,16 @@
       <column id="26" parent="4" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="27" parent="4" name="allergys_allergy_agentid_foreign">
-        <columns>allergy_agentid</columns>
+      <index id="27" parent="4" name="allergys_allergy_agent_id_foreign">
+        <columns>allergy_agent_id</columns>
         <desc-columns></desc-columns>
       </index>
       <key id="28" parent="4" name="PRIMARY">
         <columns>allergy_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="29" parent="4" name="allergys_allergy_agentid_foreign">
-        <columns>allergy_agentid</columns>
+      <foreign-key id="29" parent="4" name="allergys_allergy_agent_id_foreign">
+        <columns>allergy_agent_id</columns>
         <ref-key>~.allergyagents.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>

@@ -12,60 +12,60 @@ class CreateAllergyagentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('allergyAgents', function (Blueprint $table) {
-            $table->increments('allergy_agentid');
-            $table->string('allergyAgentDescription');
+        Schema::create('allergyagents', function (Blueprint $table) {
+            $table->increments('allergy_agent_id');
+            $table->string('allergy_agent_description');
             $table->timestamps();
         });
 
-        DB::table('allergyAgents')->insert(
+        DB::table('allergyagents')->insert(
             array(
-                'allergy_agentid' => 1,
-                'allergyAgentDescription' => 'Sulfonamides',
+                'allergy_agent_id' => 1,
+                'allergy_agent_description' => 'Sulfonamides',
             )
         );
-        DB::table('allergyAgents')->insert(
+        DB::table('allergyagents')->insert(
             array(
-                'allergy_agentid' => 2,
-                'allergyAgentDescription' => 'Tetracycline',
-            )
-        );
-
-        DB::table('allergyAgents')->insert(
-            array(
-                'allergy_agentid' => 3,
-                'allergyAgentDescription' => 'Garlic',
+                'allergy_agent_id' => 2,
+                'allergy_agent_description' => 'Tetracycline',
             )
         );
 
-        DB::table('allergyAgents')->insert(
+        DB::table('allergyagents')->insert(
             array(
-                'allergy_agentid' => 4,
-                'allergyAgentDescription' => 'Meat',
+                'allergy_agent_id' => 3,
+                'allergy_agent_description' => 'Garlic',
+            )
+        );
+
+        DB::table('allergyagents')->insert(
+            array(
+                'allergy_agent_id' => 4,
+                'allergy_agent_description' => 'Meat',
+            )
+        );
+        DB::table('allergyagents')->insert(
+            array(
+                'allergy_agent_id' => 5,
+                'allergy_agent_description' => 'Peanut',
+            )
+        );
+        DB::table('allergyagents')->insert(
+            array(
+                'allergy_agent_id' => 6,
+                'allergy_agent_description' => 'Egg',
             )
         );
         DB::table('allergyAgents')->insert(
             array(
-                'allergy_agentid' => 5,
-                'allergyAgentDescription' => 'Peanut',
+                'allergy_agent_id' => 7,
+                'allergy_agent_description' => 'Perfume',
             )
         );
-        DB::table('allergyAgents')->insert(
+        DB::table('allergyagents')->insert(
             array(
-                'allergy_agentid' => 6,
-                'allergyAgentDescription' => 'Egg',
-            )
-        );
-        DB::table('allergyAgents')->insert(
-            array(
-                'allergy_agentid' => 7,
-                'allergyAgentDescription' => 'Perfume',
-            )
-        );
-        DB::table('allergyAgents')->insert(
-            array(
-                'allergy_agentid' => 8,
-                'allergyAgentDescription' => 'Insect sting',
+                'allergy_agent_id' => 8,
+                'allergy_agent_description' => 'Insect sting',
             )
         );
     }
@@ -77,6 +77,6 @@ class CreateAllergyagentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('allergyAgents');
+        Schema::drop('allergyagents');
     }
 }

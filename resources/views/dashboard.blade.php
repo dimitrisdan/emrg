@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@include('includes.message-block')
-
 @section('content')
 
     <?php $i=0; ?>
@@ -36,6 +34,12 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#allergy-modal">
+                            <span class="glyphicon glyphicon-plus"></span> Add Allergy Alert
+                        </button>
+
                     </div>
                 </div>
             @endif
@@ -66,6 +70,11 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#medical-modal">
+                            <span class="glyphicon glyphicon-plus"></span> Add Medical Alert
+                        </button>
                     </div>
                 </div>
             @endif
@@ -100,13 +109,13 @@
                 </div>
 
                 <div class="panel-body">
+                    <a href="mailto:{{ $email }}">{{ $email }}</a><br>
+                    {{ $contact->contact_telephone }}<br>
                     <address>
-                        <a href="mailto:{{ $email }}">{{ $email }}</a><br>
-                            {{ $contact->contact_telephone }}<br>
-                            {{ $contact->contact_street }} {{ $contact->contact_number }}, {{ $contact->contact_city }}<br>
-                            {{ $contact->contact_postcode }}<br>
-                            {{ $contact->contact_state }}<br>
-                            {{ $contact->contact_Country }}
+                        {{ $contact->contact_street }} {{ $contact->contact_number }}, {{ $contact->contact_city }}<br>
+                        {{ $contact->contact_postcode }}<br>
+                        {{ $contact->contact_state }}<br>
+                        {{ $contact->contact_Country }}
                     </address>
                 </div>
             </div>
@@ -137,4 +146,5 @@
     @include('modals.guardian-modal')
     @include('modals.contact-modal')
     @include('modals.patient-modal')
+    @include('modals.allergy-modal')
 @endsection

@@ -57,6 +57,11 @@ return [
             'prefix'    => '',
             'strict'    => false,
             'engine'    => null,
+            'options'   => array(
+//                PDO::MYSQL_ATTR_SSL_KEY    => 'ssl/client-key.pem',
+//                PDO::MYSQL_ATTR_SSL_CERT    => 'ssl/cert/client-cert.pem',
+//                PDO::MYSQL_ATTR_SSL_CA    => 'ssl/cleardb-ca.pem'
+            ),
         ],
 
 //        'mysql' => [

@@ -28,27 +28,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
-        if ($request->user()) {
-            $userId = $request->user()->id;
-            echo $userId;
-            // $patient = DB::table('Patient')->where('userId', $userId)->first();
-
-            $patient = Patient::where('userId', $userId);
-            echo $patient->patientFirstName;
-//            $contact = Contact::where('contactId', 1);
-
-//            print_r($patient);
-//            print $contact;
-//            $contact = DB::table('Contact')->where('patientId', $patient)->first();
-//            $guardian = DB::table('Guardian')->where('guardianId', $patient->guardianId)->first();
-//
-
-            
-//            array_push($data, $guardian);
-
-//            print_r($data);
-        }
-        return view('home', ['patient' => $patient]);
+        return route('dashboard');
     }
 }

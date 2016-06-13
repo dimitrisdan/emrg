@@ -12,12 +12,28 @@ use App\Contact;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Psy\Exception\FatalErrorException;
 
 
 class PatientController extends Controller
 {
+    public function postUpdatePatient(Request $request)
+    {
+        //Validation
+        $patient = Patient::find($request['id']);
+        $patient->patient_nationalid= $request['patient_nationalid'];
+        $patient->patient_dob = $request['patient_dob'];
+        $patient->patient_gender = $request['patient_gender'];
+        $patient->patient_insurance = $request['patient_insurance'];
+        $patient->update();
 
+        return redirect()->route('dashboard')->with([
+            'msg-status' => 1,
+            'msg-message' => 'Patient updated.'
+        ]);
+    }
+    
     private function initPatient($user_id)
     {
         
@@ -77,10 +93,10 @@ class PatientController extends Controller
                 $agent = Allergy::find($allergy->allergy_id)->allergyagent()->get()->first();
                 array_push($agents,$agent);
             }
-
+            $patient = $patient_found;
             $data = [
                 'email' => $request->user()->email,
-                'patient' => $patient_found,
+                'patient' => $patient,
                 'contact' => $contact,
                 'guardian' => $guardian,
                 'allergies' => $allergies,
@@ -89,6 +105,8 @@ class PatientController extends Controller
             ];
 
         }
+        Session::push('patient_id',$patient->patient_id);
         return view('dashboard', $data);
     }
+    
 }
