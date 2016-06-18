@@ -36,6 +36,8 @@ class UserController extends Controller
         $user -> password = bcrypt($request['password']);
         $user -> save();
 
+        
+
         Auth::login($user);
         
         Session::forget('user_name');

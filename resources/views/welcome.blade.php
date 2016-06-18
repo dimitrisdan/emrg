@@ -29,6 +29,14 @@
                     <label for="password">Your password</label>
                     <input class="form-control" type="password" name="password" id="password" value="{{ Request::old('password') }}">
                 </div>
+                <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                    <label for="role">Role</label>
+                    <select name="role" id="role" class="form-control">
+                        <option value="admin">Administrator</option>
+                        <option value="doc">Doctor</option>
+                        <option value="pat" selected>Patient</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Register</button>
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
             </form>
