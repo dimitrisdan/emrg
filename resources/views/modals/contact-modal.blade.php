@@ -1,3 +1,4 @@
+
 <form action="{{ route('contact.update') }}" method="post">
     <!-- Modal -->
     <div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contact-modal">
@@ -10,15 +11,19 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="contact_telephone">Telephone: </label>
-                        <input type="text" name="contact_telephone" id="contact_telephone" value="{{ $contact->contact_telephone }}">
+                        @if(isset($contact->contact_telephone))
+                            <input type="text" name="contact_telephone" id="contact_telephone" value="{{ Crypt::decrypt($contact->contact_telephone) }}">
+                        @else
+                            <input type="text" name="contact_telephone" id="contact_telephone">
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="contact_street">Street: </label>
-                        <input type="text" name="contact_street" id="contact_street" value="{{ $contact->contact_street }}">
+                        <input type="text" name="contact_street" id="contact_street" value="{{ Crypt::decrypt($contact->contact_street) }}">
                     </div>
                     <div class="form-group">
                         <label for="contact_number">Street Number: </label>
-                        <input type="text" name="contact_number" id="contact_number" value="{{ $contact->contact_number }}">
+                        <input type="text" name="contact_number" id="contact_number" value="{{ Crypt::decrypt($contact->contact_number) }}">
                     </div>
                     <div class="form-group">
                         <label for="contact_city">City: </label>

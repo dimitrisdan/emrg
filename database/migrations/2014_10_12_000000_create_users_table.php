@@ -3,8 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-use Illuminate\Support\Facades\DB;
-
+/**
+ * Class CreateUsersTable
+ * 
+ * User's Database Migration
+ */
 class CreateUsersTable extends Migration
 {
     /**
@@ -15,40 +18,17 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            # Primary Key
             $table->increments('id');
-            $table->string('first_name');
-            $table->string('last_name');
+            
+            # Attributes
+            $table->string('first_name', 500);
+            $table->string('last_name', 500);
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
         });
-        
-        DB::table('users')->insert(
-            array(
-                'first_name' => 'Mitsos',
-                'last_name' => 'Danampasis',
-                'email' => 'md@hgmail.com',
-                'password' => bcrypt('malamatina86'),
-            )
-        );
-        
-        DB::table('users')->insert(
-            array(
-                'first_name' => 'Olga',
-                'last_name' => 'Triantou',
-                'email' => 'ot@hotmail.com',
-                'password' => bcrypt('malamatina86'),
-            )
-        );
-        DB::table('users')->insert(
-            array(
-                'first_name' => 'Tina',
-                'last_name' => 'Mpitouni',
-                'email' => 'tm@hotmail.com',
-                'password' => bcrypt('malamatina86'),
-            )
-        );
     }
 
     /**

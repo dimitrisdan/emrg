@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Guardian extends Model
 {
+    /**
+     * Model Config
+     */
     protected $table = 'guardians';
     protected $primaryKey = 'guardian_id';
     public $timestamps = true;

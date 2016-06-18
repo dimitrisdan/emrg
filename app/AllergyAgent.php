@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AllergyAgent extends Model
 {
-    protected $table = 'allergyAgents';
+    /**
+     * Model Config
+     */
+    protected $table = 'allergy_agents';
     protected $primaryKey = 'allergy_agent_id';
     public $timestamps = true;
 

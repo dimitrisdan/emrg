@@ -3,6 +3,12 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
+/**
+ * Class CreatePatientallergiesTable
+ * 
+ * Patients' Allergies Database Migration
+ */
 class CreatePatientallergiesTable extends Migration
 {
     /**
@@ -12,41 +18,24 @@ class CreatePatientallergiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('patientToAllergyAlerts', function (Blueprint $table) {
+        Schema::create('patient_allergy_alerts', function (Blueprint $table) {
+            # Primary Key
             $table->increments('id');
+            
+            # Attributes
             $table->integer('patient_id')->unsigned();
             $table->integer('allergy_id')->unsigned();
             $table->timestamps();
+            
             # Foreign Keys
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
-            $table->foreign('allergy_id')->references('allergy_id')->on('allergys');
+            $table->foreign('patient_id')
+                ->references('patient_id')->on('patients')
+                ->onDelete('cascade');
+            
+            $table->foreign('allergy_id')
+                ->references('allergy_id')->on('allergys')
+                ->onDelete('cascade');
         });
-
-//        DB::table('patientToAllergyAlerts')->insert(
-//            array(
-//                'patient_id' => 1,
-//                'allergy_id' => 1,
-//            )
-//        );
-//
-//        DB::table('patientToAllergyAlerts')->insert(
-//            array(
-//                'patient_id' => 2,
-//                'allergy_id' => 2,
-//            )
-//        );
-//        DB::table('patientToAllergyAlerts')->insert(
-//            array(
-//                'patient_id' => 3,
-//                'allergy_id' => 3,
-//            )
-//        );
-//        DB::table('patientToAllergyAlerts')->insert(
-//            array(
-//                'patient_id' => 3,
-//                'allergy_id' => 2,
-//            )
-//        );
     }
 
     /**
@@ -56,6 +45,13 @@ class CreatePatientallergiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('patientToAllergyAlerts');
+        Schema::table('patient_allergy_alerts', function($table)
+        {
+            $table->dropForeign('patient_allergy_alerts_allergy_id_foreign');
+            $table->dropForeign('patient_allergy_alerts_patient_id_foreign');
+            $table->dropColumn('allergy_id');
+            $table->dropColumn('patient_id');
+        });
+        Schema::drop('patient_allergy_alerts');
     }
 }

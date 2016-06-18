@@ -22,19 +22,6 @@
 |
 */
 
-//
-//Route::group(['middleware' => ['web']], function () {
-//
-
-//
-//    Route::get('/tasks', 'TaskController@index');
-//    Route::post('/task', 'TaskController@store');
-//    Route::delete('/task/{task}', 'TaskController@destroy');
-//
-//    Route::auth();
-//
-//});
-
 Route::group(['middleware' => 'web'], function () {
 
     /*
@@ -42,18 +29,16 @@ Route::group(['middleware' => 'web'], function () {
     | Core Routes
     |--------------------------------------------------------------------------
     */
+
     Route::get('/', function () {
         return view('welcome');
-    })->middleware('guest');
-
-//    Route::get('/', function () {
-//        return view('welcome');
-//    })->name('home');
-
+    })->name('home');
+    
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
-        'as' => 'signup'
+        'as' => 'signup',
     ]);
+    
     Route::post('/signin', [
         'uses' => 'UserController@postSignIn',
         'as' => 'signin'
@@ -68,35 +53,31 @@ Route::group(['middleware' => 'web'], function () {
     | Dashboard Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('/dashboard', [
+
+    Route::any('/dashboard', [
         'uses' => 'PatientController@getDashboard',
         'as' => 'dashboard',
-        'middleware' => 'auth'
+        'middleware' => ['auth', 'patient',]
     ]);
+
+//    Route::post('/registration', [
+//        'uses' => 'PatientController@',
+//        'as' => '',
+//        'middleware' => 'auth'
+//    ]);
 
     /*
     |--------------------------------------------------------------------------
     | Patient Routes
     |--------------------------------------------------------------------------
     */
-    Route::post('/create-patient', [
-        'uses' => 'PatientController@postCreatePatient',
-        'as' => 'patient.create',
-        'middleware' => 'auth'
-    ]);
-
+    
     Route::post('/update-patient', [
         'uses' => 'PatientController@postUpdatePatient',
         'as' => 'patient.update',
         'middleware' => 'auth'
     ]);
 
-    Route::get('/delete-patient', [
-        'uses' => 'ContactController@getDeleteContact',
-        'as' => 'contact.delete',
-        'middleware' => 'auth'
-    ]);
-    
     /*
     |--------------------------------------------------------------------------
     | Contact Routes
@@ -112,6 +93,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/delete-contact', [
         'uses' => 'ContactController@getDeleteContact',
         'as' => 'contact.create',
+        'middleware' => 'auth'
+    ]);
+
+    Route::delete('/contact/{contact_id}', [
+        'uses' => 'ContactController@deleteContact',
+        'as' => 'contact.delete',
         'middleware' => 'auth'
     ]);
     /*
@@ -143,20 +130,38 @@ Route::group(['middleware' => 'web'], function () {
     |--------------------------------------------------------------------------
     */
     Route::post('/create-allergy', [
-        'uses' => 'AllergyController@postCreateAllergy',
+        'uses' => 'AllergyController@createAllergy',
         'as' => 'allergy.create',
-        'middleware' => 'auth'
+        'middleware' => ['auth', 'logging']
     ]);
 
-//    Route::get('/delete-allergy', [
-//        'uses' => 'GuardianController@getDeleteGuardian',
-//        'as' => 'guardian.delete',
-//        'middleware' => 'auth'
-//    ]);
+    Route::get('/delete-allergy', [
+        'uses' => 'AllergyController@deleteAllergy',
+        'as' => 'allergy.delete',
+        'middleware' => 'auth'
+    ]);
 //
 //    Route::get('/allergy', [
 //        'uses' => 'AllergyController@getCreateGuardian',
 //        'as' => 'guardian.new',
 //        'middleware' => 'auth'
 //    ]);
+
+    /*
+   |--------------------------------------------------------------------------
+   | Medical Alert Routes
+   |--------------------------------------------------------------------------
+   */
+    Route::post('/create-medicalalert', [
+        'uses' => 'MedicalAlertController@createMedicalAlert',
+        'as' => 'medicalalert.create',
+        'middleware' => ['auth']
+    ]);
+
+    Route::get('/delete-medicalalert', [
+        'uses' => 'MedicalAlertController@deleteMedicalAlert',
+        'as' => 'medicalalert.delete',
+        'middleware' => 'auth'
+    ]);
+
 });

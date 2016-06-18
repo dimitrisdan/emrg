@@ -27,19 +27,19 @@
                     </div>
                     <div class="form-group">
                         <label for="guardian_firstname">First Name: </label>
-                        <input type="text" class="form-control" name="guardian_firstname" id="guardian_firstname" value="{{ $guardian->guardian_firstname }}">
+                        <input type="text" class="form-control" name="guardian_firstname" id="guardian_firstname" value="{{ Crypt::decrypt($guardian->guardian_firstname) }}">
                     </div>
                     <div class="form-group">
                         <label for="guardian_lastname">Last Name: </label>
-                        <input type="text" class="form-control" name="guardian_lastname" id="guardian_lastname" value="{{ $guardian->guardian_lastname }}">
+                        <input type="text" class="form-control" name="guardian_lastname" id="guardian_lastname" value="{{ Crypt::decrypt($guardian->guardian_lastname) }}">
                     </div>
                     <div class="form-group">
                         <label for="guardian_telephone">Telephone: </label>
-                        <input type="text" class="form-control" name="guardian_telephone" id="guardian_telephone" value="{{ $guardian->guardian_telephone }}">
+                        <input type="text" class="form-control" name="guardian_telephone" id="guardian_telephone" value="{{ Crypt::decrypt($guardian->guardian_telephone) }}">
                     </div>
                     <div class="form-group">
                         <label for="guardian_email">E-Mail: </label>
-                        <input type="text" class="form-control" name="guardian_email" id="guardian_email" value="{{ $guardian->guardian_email}}">
+                        <input type="text" class="form-control" name="guardian_email" id="guardian_email" value="{{ Crypt::decrypt($guardian->guardian_email) }}">
                     </div>
                 </div>
                 <div class="modal-footer">

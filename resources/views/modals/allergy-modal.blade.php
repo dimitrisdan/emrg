@@ -1,6 +1,6 @@
 <form action="{{ route('allergy.create') }}" method="post">
     <!-- Modal -->
-    <div class="modal fade" id="allergy-modal" tabindex="-1" role="dialog" aria-labelledby="contact-modal">
+    <div class="modal fade" id="allergy-modal" tabindex="-1" role="dialog" aria-labelledby="allergy-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,7 +12,7 @@
                         <label for="allergy_agent_id">Allergy Description: </label>
                         <select class="form-control" name="allergy_agent_id" id="allergy_agent_id">
                             <?php
-                                $allergy_agents = DB::table('allergyagents')->get();
+                                $allergy_agents = DB::table('allergy_agents')->get();
                             ?>
                             @foreach($allergy_agents as $allergy_agent)
                                 <option value="{{ $allergy_agent->allergy_agent_id }} }}">{{ $allergy_agent->allergy_agent_description }}</option>

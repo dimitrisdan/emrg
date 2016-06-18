@@ -1,4 +1,4 @@
-<form action="{{ route('patient.update') }}" class="form-control" method="post">
+<form action="{{ route('patient.update') }}" class="form-group" method="post">
     <!-- Modal -->
     <div class="modal fade" id="patient-modal" tabindex="-1" role="dialog" aria-labelledby="patient-modal">
         <div class="modal-dialog" role="document">
@@ -8,27 +8,14 @@
                     <h4 class="modal-title" id="myModalLabel">Edit Personal Information</h4>
                 </div>
                 <div class="modal-body">
+
                     <div class="form-group">
                         <label for="patient_nationalid">National ID: </label>
-                        <input type="text" class="form-control" name="patient_nationalid" id="patient_nationalid" value="{{ $patient->patient_nationalid }}">
+                        <input type="text" class="form-control" name="patient_nationalid" id="patient_nationalid" value="{{ Crypt::decrypt($patient->patient_nationalid) }}">
                     </div>
-
-                    <label for="idTourDateDetails">Tour Start Date:</label>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" name="idTourDateDetails" id="idTourDateDetails" readonly="readonly" class="form-control clsDatePicker"> <span class="input-group-addon"><i id="calIconTourDateDetails" class="glyphicon glyphicon-th"></i></span>
-
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label for="patient_dob">Date of Birth: </label>
-                        <div class='input-group date' id='patient_dob'>
-                            <input type='text' class="form-control" value="{{ $patient->patient_dob }}"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
+                        <input type='text' name="patient_dob" id="patient_dob" class="form-control" placeholder="DD/MM/YYYY" value="{{ $patient->patient_dob }}"/>
                     </div>
                     <div class="form-group">
                         <label for="patient_gender">Gender: </label>
@@ -48,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="patient_insurance">Insurance Number: </label>
-                        <input type="text" class="form-control" name="patient_insurance" id="patient_insurance" value="{{$patient->patient_insurance}}">
+                        <input type="text" class="form-control" name="patient_insurance" id="patient_insurance" value="{{ Crypt::decrypt($patient->patient_insurance) }}">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -60,5 +47,4 @@
             </div>
         </div>
     </div>
-
 </form>

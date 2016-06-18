@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string allergy_description
  * @property string allergy_onset
  */
-
 class Allergy extends Model
 {
+    /**
+     * Model Config
+     */
     protected $table = 'allergys';
     protected $primaryKey = 'allergy_id';
     public $timestamps = true;
-
     protected $fillable = [
         'allergy_id','allergy_agent_id', 'allergy_description', 'allergy_onset',
     ];
@@ -25,6 +26,7 @@ class Allergy extends Model
     {
         return $this->hasOne('App\AllergyAgent','allergy_agent_id','allergy_agent_id');
     }
+
     public function patients()
     {
         return $this->belongsToMany('App\PatientToAllergyAlert', 'patientToAllergyAlerts','allergy_id');

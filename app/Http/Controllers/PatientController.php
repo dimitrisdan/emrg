@@ -3,110 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Allergy;
-use App\AllergyAgent;
-use App\Guardian;
-use App\MedicalAlert;
 use App\Patient;
-use App\Contact;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
-use Psy\Exception\FatalErrorException;
+use Illuminate\Support\Facades\View;
 
 
+/**
+ * Class PatientController
+ * @package App\Http\Controllers
+ */
 class PatientController extends Controller
 {
+    
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function postUpdatePatient(Request $request)
     {
         //Validation
         $patient = Patient::find($request['id']);
-        $patient->patient_nationalid= $request['patient_nationalid'];
+        $patient->patient_nationalid = Crypt::encrypt($request['patient_nationalid']);
         $patient->patient_dob = $request['patient_dob'];
         $patient->patient_gender = $request['patient_gender'];
-        $patient->patient_insurance = $request['patient_insurance'];
+        $patient->patient_insurance = Crypt::encrypt($request['patient_insurance']);
         $patient->update();
 
-        return redirect()->route('dashboard')->with([
-            'msg-status' => 1,
-            'msg-message' => 'Patient updated.'
-        ]);
+        return redirect('dashboard');
     }
     
-    private function initPatient($user_id)
+    /**
+     * Find the allergies and each allergy's
+     * agent of the patient's allergies
+     *
+     * @param Patient $patient
+     * @return array
+     */
+    private function findAllergiesAndAgents($patient)
     {
-        
-        $contact = new Contact();
-        $contact->save();
-        $guardian = new Guardian();
-        $guardian->save();
-
-        $patient = new Patient();
-        $patient->user_id = $user_id;
-        $patient->contact_id = $contact->contact_id; 
-        $patient->guardian_id = $guardian->guardian_id;
-        
-        $patient->save();
-        
-        return $patient;
+        $allergies = $patient->allergies()->get();
+        $agents = array();
+        foreach ($allergies as $allergy) {
+            $agent = Allergy::find($allergy->allergy_id)->allergyagent()->get()->first();
+            array_push($agents, $agent);
+        }
+        $allergies_and_agents = [$allergies,$agents];
+        return $allergies_and_agents;
     }
 
-    public function patientExists($user_id)
-    {
-        $patient = Patient::where('user_id', '=', $user_id)->get()->first();
-        if(count($patient)==0)
-            return false;
-        elseif(count($patient)==1)
-            return $patient;
-    }
-
+    /**
+     * Prepares Dashboard View
+     *
+     * @param Request $request
+     * @return View
+     */
     public function getDashboard(Request $request)
     {
-        $patient_found = $this->patientExists($request->user()->id);
-
-        // if patient doesn't exist
-        if(!$patient_found)
+        $patient = Patient::where('user_id', '=', Auth::user()->id)->first();
+        Session::forget('patient_id');
+        Session::put('patient_id', $patient->patient_id);
+        
+        if (count($patient)>0)
         {
-            $patient = $this->initPatient($request->user()->id);
-            
-            $data = [
-                'email' => $request->user()->email,
-                'patient' => $patient,
-                'contact' => false,
-                'guardian' => false,
-                'allergies' => false,
-                'agents' => false,
-                'medicals' => false
-            ];
-        }
-        // if patient exists
-        else
-        {
-            $contact = Contact::where('contact_id', '=', $patient_found->contact_id)->get()->first();
-            $guardian = Guardian::where('guardian_id', '=', $patient_found->guardian_id)->get()->first();
-            $allergies = $patient_found->allergies()->get();
-            $medicals = $patient_found->medicalAlerts()->get();
-            $agents = array();
+            $allergies_and_agents = $this->findAllergiesAndAgents($patient);
+            $allergies = $allergies_and_agents[0];
+            $agents = $allergies_and_agents[1];
+        }else
+            return view('503');
 
-            foreach ($allergies as $allergy){
-                $agent = Allergy::find($allergy->allergy_id)->allergyagent()->get()->first();
-                array_push($agents,$agent);
-            }
-            $patient = $patient_found;
-            $data = [
-                'email' => $request->user()->email,
-                'patient' => $patient,
-                'contact' => $contact,
-                'guardian' => $guardian,
-                'allergies' => $allergies,
-                'agents' => $agents,
-                'medicals' => $medicals
-            ];
-
-        }
-        Session::push('patient_id',$patient->patient_id);
+        # Initialize Patient Data
+        $data = [
+            'patient' => $patient,
+            'contact' => $patient->contact()->get()->first(),
+            'guardian' => $patient->guardian()->get()->first(),
+            'allergies' => $allergies,
+            'agents' => $agents,
+            'medicals' => $patient->medicalAlerts()->get()
+        ];
         return view('dashboard', $data);
     }
-    
+
 }

@@ -26,6 +26,13 @@
                     </button>
                     <strong>Holy guacamole!</strong> {{ Session::get('msg-message') }}
                 </div>
+            @elseif(Session::get('msg-status') == 2)
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ Session::get('msg-message') }}</strong>
+                </div>
             @endif
         </div>
     </div>

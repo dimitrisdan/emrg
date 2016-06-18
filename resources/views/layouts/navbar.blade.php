@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                    <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li><a href="#">Policies</a></li>
@@ -35,7 +35,7 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <span class="caret"></span>
+                                {{ Session::get("user_name") }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">

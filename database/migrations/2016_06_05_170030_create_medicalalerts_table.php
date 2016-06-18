@@ -3,6 +3,11 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateMedicalalertsTable
+ * 
+ * Medical Alerts' Database Migration
+ */
 class CreateMedicalalertsTable extends Migration
 {
     /**
@@ -12,23 +17,23 @@ class CreateMedicalalertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('medicalAlerts', function (Blueprint $table) {
-            $table->increments('medical_alertid');
-            $table->string('medicalAlertDescr');
+        Schema::create('medical_alerts', function (Blueprint $table) {
+            # Primary Key
+            $table->increments('medicalalert_id');
+            
+            # Attributes
+            $table->string('medicalalert_description');
             $table->timestamps();
         });
-        DB::table('medicalAlerts')->insert(
+        
+        DB::table('medical_alerts')->insert(
             array(
-                'medical_alertid' => 1,
-                'medicalAlertDescr' => 'Intolerance to aspirin due to gastrointestinal bleeding.',
-                'created_at' => date("Y-m-d H:i:s")
+                'medicalalert_description' => 'Intolerance to aspirin due to gastrointestinal bleeding.',
             )
         );
-        DB::table('medicalAlerts')->insert(
+        DB::table('medical_alerts')->insert(
             array(
-                'medical_alertid' => 2,
-                'medicalAlertDescr' => 'Intolerance to captopril because of cough',
-                'created_at' => date("Y-m-d H:i:s")
+                'medicalalert_description' => 'Intolerance to captopril because of cough',
             )
         );
     }
@@ -40,6 +45,6 @@ class CreateMedicalalertsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('medicalAlerts');
+        Schema::drop('medical_alerts');
     }
 }

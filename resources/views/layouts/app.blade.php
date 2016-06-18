@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Emergency Records</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -23,6 +23,7 @@
         .fa-btn {
             margin-right: 6px;
         }
+        .datepicker{z-index:1151 !important;}
     </style>
 
 </head>
@@ -37,17 +38,17 @@
     </div>
     <!-- JavaScripts -->
     <script>
-        $('#idTourDateDetails').datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: '+5d',
-            changeMonth: true,
-            changeYear: true,
-            altField: "#idTourDateDetailsHidden",
-            altFormat: "yy-mm-dd"
-        });
-
-        $(function () {
-            $('#patient_dob').datetimepicker();
+        $(document).ready(function() {
+            $('a[data-confirm]').click(function(ev) {
+                var href = $(this).attr('href');
+                if (!$('#dataConfirmModal').length) {
+                    $('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div>');
+                }
+                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                $('#dataConfirmOK').attr('href', href);
+                $('#dataConfirmModal').modal({show:true});
+                return false;
+            });
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

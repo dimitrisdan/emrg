@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 /**
  * @property integer patient_id
  * @property integer contact_id
@@ -17,19 +16,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Patient extends Model
 {
+    /**
+     * Model Config
+     */
     protected $primaryKey='patient_id';
     public $incrementing = true;
     public $timestamps = true;
-
     protected $fillable = [
         'patient_id','contact_id','guardian_id','user_id','patient_nationalid','patient_dob','patient_insurance','patient_gender'
     ];
-
-//    private $patient;
-//
-//    public function __construct(Patient $patient){
-//        $this->patient = $patient;
-//    }
 
     public function user()
     {
@@ -45,15 +40,10 @@ class Patient extends Model
     }
     public function allergies()
     {
-        return $this->belongsToMany('App\Allergy', 'patientToAllergyAlerts','patient_id');
+        return $this->belongsToMany('App\Allergy', 'patient_allergy_alerts','patient_id');
     }
-    public function medicalAlerts()
+    public function medicalalerts()
     {
-        return $this->belongsToMany('App\MedicalAlert','patientToMedicalAlerts','patient_id', 'medical_alertid');
-    }
-    
-    public function getPatientId()
-    {
-        return $this->patientId;
+        return $this->belongsToMany('App\MedicalAlert','patient_medical_alerts','patient_id', 'medicalalert_id');
     }
 }
