@@ -115,6 +115,7 @@
             </div>
 
         @if(isset($contact))
+
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     Contact Information

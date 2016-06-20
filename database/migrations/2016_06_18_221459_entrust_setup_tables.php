@@ -78,6 +78,28 @@ class EntrustSetupTables extends Migration
                 'description' => 'Patient is allowed...'
             )
         );
+
+        DB::table('permissions')->insert(
+            array(
+                'name' => 'view-dashboard',
+                'display_name' => 'View Dashboard',
+                'description' => 'A patient can view the Dashboard'
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'name' => 'edit-dashboard',
+                'display_name' => 'Edit Dashboard',
+                'description' => 'A user can edit the content of the Dashboard'
+            )
+        );
+        DB::table('permissions')->insert(
+            array(
+                'name' => 'view-shared-profile',
+                'display_name' => 'View shared profile',
+                'description' => 'A doctor may view a patient profile'
+            )
+        );
     }
 
     /**

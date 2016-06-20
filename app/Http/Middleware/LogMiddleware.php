@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use Illuminate\Support\Facades\Log;
+
+
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
@@ -17,22 +20,37 @@ class LogMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    protected $path;
-    protected $stream;
+//    protected $path;
+//    protected $stream;
 
-    public function __construct()
-    {
-        $this->path = storage_path();
-        $this->stream = new StreamHandler($this->path.'/my_app.log', Logger::DEBUG);
-    }
+//    public function __construct()
+//    {
+//        $this->path = storage_path();
+//        $this->stream = new StreamHandler($this->path.'/my_app.log', Logger::DEBUG);
+//    }
+
 
     public function handle($request, Closure $next)
     {
-        $logger = new Logger('my_logger');
-        $logger->pushHandler($this->stream);
+//        print '<pre>';
+//        print_r($request);
+//        print '</pre>';
+//        $request->user();
+        
+        // create a log channel
+        $log = new Logger('name');
+        $log->pushHandler(new StreamHandler( storage_path().'/requests.log', Logger::WARNING));
 
-        $securityLogger = new Logger('security');
-        $securityLogger->pushHandler($this->stream);
+        // add records to the log
+        $log->warning('SignUpRequest:'. $request->input('email'));
+        
+
+
+//        $logger = new Logger('my_logger');
+//        $logger->pushHandler($this->stream);
+//
+//        $securityLogger = new Logger('security');
+//        $securityLogger->pushHandler($this->stream);
 
 //        $logger->addInfo($request->user())
         return $next($request);

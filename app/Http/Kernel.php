@@ -48,10 +48,16 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'logging' => \App\Http\Middleware\LogMiddleware::class,
-        'patient' => \App\Http\Middleware\PatientMiddleware::class,
+        
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        
+        'patient' => \App\Http\Middleware\PatientMiddleware::class,
+        # Logs
+        'before_signup' => \App\Http\Middleware\BeforeSignUpMiddleware::class,
+        'after_signup' => \App\Http\Middleware\AfterSignUpMiddleware::class,
+        
+        
     ];
 }

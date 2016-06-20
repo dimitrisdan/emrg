@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 
 /**
  * Class PatientController
@@ -26,6 +29,9 @@ class PatientController extends Controller
      */
     public function postUpdatePatient(Request $request)
     {
+        $log = new Logger('patient');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient|Attempt');
         //Validation
         $patient = Patient::find($request['id']);
         $patient->patient_nationalid = Crypt::encrypt($request['patient_nationalid']);
@@ -33,7 +39,7 @@ class PatientController extends Controller
         $patient->patient_gender = $request['patient_gender'];
         $patient->patient_insurance = Crypt::encrypt($request['patient_insurance']);
         $patient->update();
-
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient|Updated');
         return redirect('dashboard');
     }
     
@@ -64,18 +70,25 @@ class PatientController extends Controller
      */
     public function getDashboard(Request $request)
     {
+        $log_email = Auth::user()->email;
+        $log = new Logger('patient');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
+        $log->info('From:' . $log_email . '|GetDashboard|Attempt');
+
         $patient = Patient::where('user_id', '=', Auth::user()->id)->first();
         Session::forget('patient_id');
         Session::put('patient_id', $patient->patient_id);
-        
+        $log->info('From:' . $log_email . '|Patient:'. $patient->patient_id.'|GetDashboard|PatientFound');
         if (count($patient)>0)
         {
             $allergies_and_agents = $this->findAllergiesAndAgents($patient);
             $allergies = $allergies_and_agents[0];
             $agents = $allergies_and_agents[1];
+            $log->info('From:' . $log_email . '|Patient:'. $patient->patient_id.'|GetDashboard|AllergiesFound:'.count($allergies));
+            
         }else
             return view('503');
-
+        
         # Initialize Patient Data
         $data = [
             'patient' => $patient,
@@ -85,6 +98,11 @@ class PatientController extends Controller
             'agents' => $agents,
             'medicals' => $patient->medicalAlerts()->get()
         ];
+        $log->info('From:' . $log_email . '|Patient:'. $patient->patient_id.'|GetDashboard|DataStored');
+        # Debugging
+//        echo '<pre>';
+//        print_r($data['patient']);
+//        echo '</pre>';
         return view('dashboard', $data);
     }
 

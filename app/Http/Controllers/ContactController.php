@@ -7,7 +7,9 @@ use App\Http\Requests;
 
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
-
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Illuminate\Support\Facades\Session;
 
 class ContactController extends Controller
 {
@@ -36,6 +38,12 @@ class ContactController extends Controller
     public function postUpdateContact(Request $request)
     {
         //Validation
+        
+        //Log
+        $log = new Logger('patient');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdateContact|Attempt');
+        
         $contact = Contact::find($request['id']);
         $contact->contact_telephone = Crypt::encrypt($request['contact_telephone']);
         $contact->contact_street = Crypt::encrypt($request['contact_street']);
@@ -46,7 +54,9 @@ class ContactController extends Controller
         $contact->contact_country = $request['contact_country'];
         $contact->contact_hpid = $request['contact_hpid'];
         $contact->update();
-
+        
+        $log->info('From:' . Session::get('user_email') . '|Patient:'. Session::get('patient_id') .'|UpdateContact|Updated');
+        
         return redirect()->route('dashboard')->with([
             'msg-status' => 1,
             'msg-message' => 'Contact updated.'

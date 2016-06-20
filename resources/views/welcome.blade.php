@@ -18,12 +18,12 @@
                     <input class="form-control" type="email" name="email" id="email" value="{{ Request::old('email') }}">
                 </div>
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <label for="last_name">First Name</label>
-                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ Request::old('name') }}">
+                    <label for="first_name">First Name</label>
+                    <input class="form-control" type="text" name="first_name" id="first_name" value="{{ Request::old('name') }}">
                 </div>
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <label for="first_name">Last Name</label>
-                    <input class="form-control" type="text" name="first_name" id="first_name" value="{{ Request::old('name') }}">
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ Request::old('name') }}">
                 </div>
                 <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                     <label for="password">Your password</label>

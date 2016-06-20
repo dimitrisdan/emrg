@@ -37,6 +37,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
         'as' => 'signup',
+//        'middleware' => ['before_signup', 'after_signup']
     ]);
     
     Route::post('/signin', [

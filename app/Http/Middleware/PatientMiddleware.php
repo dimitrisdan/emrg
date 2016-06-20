@@ -8,6 +8,9 @@ use App\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Closure;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Middleware to check if the logged in user is assigned with a Patient
@@ -33,8 +36,13 @@ class PatientMiddleware
 
         $patient = Patient::where('user_id', '=', $user->id)->get()->first();
 
+        $log = new Logger('patient');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
+        
+        
         if (count($patient)==0)
         {
+            $log->info('From:' . Session::get('user_email') . '|PatientInit|Attempt');
             # Initialize Contact
             $contact = new Contact();
             $contact->contact_telephone = Crypt::encrypt('2107486811');
@@ -61,11 +69,12 @@ class PatientMiddleware
             $patient->user_id = $user->id; 
             $patient->contact_id = $contact->contact_id;
             $patient->guardian_id = $guardian->guardian_id; 
-            $patient->patient_nationalid = 'XXXXXXX';
-            $patient->patient_insurance = '1111111';
+            $patient->patient_nationalid = Crypt::encrypt('XXXXXXX');
+            $patient->patient_insurance = Crypt::encrypt('1111111');
             $patient->patient_gender = 'male';
             $patient->patient_dob = date("Y/m/d");
             $patient->save();
+            $log->info('From:' . Session::get('user_email') . '|Patient:' . $patient->user_id .'|PatientInit|Created');
         }
         return $next($request);
     }
