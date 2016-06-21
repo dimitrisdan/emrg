@@ -23,7 +23,7 @@ class Patient extends Model
     public $incrementing = true;
     public $timestamps = true;
     protected $fillable = [
-        'patient_id','contact_id','guardian_id','user_id','patient_nationalid','patient_dob','patient_insurance','patient_gender'
+        'patient_id','contact_id','guardian_id','user_id','patient_cpr','patient_dob','patient_insurance','patient_gender'
     ];
 
     public function user()

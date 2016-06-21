@@ -34,7 +34,7 @@ class PatientController extends Controller
         $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient|Attempt');
         //Validation
         $patient = Patient::find($request['id']);
-        $patient->patient_nationalid = Crypt::encrypt($request['patient_nationalid']);
+        $patient->patient_cpr = Crypt::encrypt($request['patient_cpr']);
         $patient->patient_dob = $request['patient_dob'];
         $patient->patient_gender = $request['patient_gender'];
         $patient->patient_insurance = Crypt::encrypt($request['patient_insurance']);

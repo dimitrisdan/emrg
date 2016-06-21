@@ -441,535 +441,593 @@
       <table id="7" parent="1" name="migrations"/>
       <table id="8" parent="1" name="password_resets"/>
       <table id="9" parent="1" name="patient_allergy_alerts"/>
-      <table id="10" parent="1" name="patient_medical_alerts"/>
-      <table id="11" parent="1" name="patients"/>
-      <table id="12" parent="1" name="permission_role"/>
-      <table id="13" parent="1" name="permissions"/>
-      <table id="14" parent="1" name="role_user"/>
-      <table id="15" parent="1" name="roles"/>
-      <table id="16" parent="1" name="sessions"/>
-      <table id="17" parent="1" name="users"/>
-      <column id="18" parent="2" name="allergy_agent_id">
+      <table id="10" parent="1" name="patients"/>
+      <table id="11" parent="1" name="users"/>
+      <table id="12" parent="1" name="doctors"/>
+      <table id="13" parent="1" name="patient_medical_alerts"/>
+      <table id="14" parent="1" name="permission_role"/>
+      <table id="15" parent="1" name="permissions"/>
+      <table id="16" parent="1" name="role_user"/>
+      <table id="17" parent="1" name="roles"/>
+      <table id="18" parent="1" name="sessions"/>
+      <table id="19" parent="1" name="admins"/>
+      <column id="20" parent="2" name="allergy_agent_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="19" parent="2" name="allergy_agent_description">
+      <column id="21" parent="2" name="allergy_agent_description">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="20" parent="2" name="created_at">
+      <column id="22" parent="2" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="21" parent="2" name="updated_at">
+      <column id="23" parent="2" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="22" parent="2" name="PRIMARY">
+      <key id="24" parent="2" name="PRIMARY">
         <columns>allergy_agent_id</columns>
         <primary>1</primary>
       </key>
-      <column id="23" parent="3" name="allergy_id">
+      <column id="25" parent="3" name="allergy_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="24" parent="3" name="allergy_agent_id">
+      <column id="26" parent="3" name="allergy_agent_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="25" parent="3" name="allergy_description">
+      <column id="27" parent="3" name="allergy_description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="26" parent="3" name="allergy_onset">
+      <column id="28" parent="3" name="allergy_onset">
         <data-type>date</data-type>
       </column>
-      <column id="27" parent="3" name="created_at">
+      <column id="29" parent="3" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="28" parent="3" name="updated_at">
+      <column id="30" parent="3" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="29" parent="3" name="allergys_allergy_agent_id_foreign">
+      <index id="31" parent="3" name="allergys_allergy_agent_id_foreign">
         <columns>allergy_agent_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="30" parent="3" name="PRIMARY">
+      <key id="32" parent="3" name="PRIMARY">
         <columns>allergy_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="31" parent="3" name="allergys_allergy_agent_id_foreign">
+      <foreign-key id="33" parent="3" name="allergys_allergy_agent_id_foreign">
         <columns>allergy_agent_id</columns>
         <ref-key>~.allergy_agents.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="32" parent="4" name="contact_id">
+      <column id="34" parent="4" name="contact_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="33" parent="4" name="contact_telephone">
+      <column id="35" parent="4" name="contact_telephone">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="34" parent="4" name="contact_street">
+      <column id="36" parent="4" name="contact_street">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="35" parent="4" name="contact_number">
+      <column id="37" parent="4" name="contact_number">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="36" parent="4" name="contact_city">
+      <column id="38" parent="4" name="contact_city">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="37" parent="4" name="contact_postcode">
+      <column id="39" parent="4" name="contact_postcode">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="38" parent="4" name="contact_state">
+      <column id="40" parent="4" name="contact_state">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="39" parent="4" name="contact_country">
+      <column id="41" parent="4" name="contact_country">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="40" parent="4" name="contact_hpid">
+      <column id="42" parent="4" name="contact_hpid">
         <data-type>int(11)</data-type>
       </column>
-      <column id="41" parent="4" name="created_at">
+      <column id="43" parent="4" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="42" parent="4" name="updated_at">
+      <column id="44" parent="4" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="43" parent="4" name="PRIMARY">
+      <key id="45" parent="4" name="PRIMARY">
         <columns>contact_id</columns>
         <primary>1</primary>
       </key>
-      <column id="44" parent="5" name="guardian_id">
+      <column id="46" parent="5" name="guardian_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="45" parent="5" name="guardian_role">
+      <column id="47" parent="5" name="guardian_role">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="46" parent="5" name="guardian_firstname">
+      <column id="48" parent="5" name="guardian_firstname">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="47" parent="5" name="guardian_lastname">
+      <column id="49" parent="5" name="guardian_lastname">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="48" parent="5" name="guardian_telephone">
+      <column id="50" parent="5" name="guardian_telephone">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="49" parent="5" name="guardian_email">
+      <column id="51" parent="5" name="guardian_email">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="50" parent="5" name="created_at">
+      <column id="52" parent="5" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="51" parent="5" name="updated_at">
+      <column id="53" parent="5" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="52" parent="5" name="PRIMARY">
+      <key id="54" parent="5" name="PRIMARY">
         <columns>guardian_id</columns>
         <primary>1</primary>
       </key>
-      <column id="53" parent="6" name="medicalalert_id">
+      <column id="55" parent="6" name="medicalalert_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="54" parent="6" name="medicalalert_description">
+      <column id="56" parent="6" name="medicalalert_description">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="55" parent="6" name="created_at">
+      <column id="57" parent="6" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="56" parent="6" name="updated_at">
+      <column id="58" parent="6" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <key id="57" parent="6" name="PRIMARY">
+      <key id="59" parent="6" name="PRIMARY">
         <columns>medicalalert_id</columns>
         <primary>1</primary>
       </key>
-      <column id="58" parent="7" name="migration">
+      <column id="60" parent="7" name="migration">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="59" parent="7" name="batch">
+      <column id="61" parent="7" name="batch">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="60" parent="8" name="email">
+      <column id="62" parent="8" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="61" parent="8" name="token">
+      <column id="63" parent="8" name="token">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="62" parent="8" name="created_at">
+      <column id="64" parent="8" name="created_at">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <index id="63" parent="8" name="password_resets_email_index">
+      <index id="65" parent="8" name="password_resets_email_index">
         <columns>email</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="64" parent="8" name="password_resets_token_index">
+      <index id="66" parent="8" name="password_resets_token_index">
         <columns>token</columns>
         <desc-columns></desc-columns>
       </index>
-      <column id="65" parent="9" name="id">
+      <column id="67" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="66" parent="9" name="patient_id">
+      <column id="68" parent="9" name="patient_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="67" parent="9" name="allergy_id">
+      <column id="69" parent="9" name="allergy_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="68" parent="9" name="created_at">
+      <column id="70" parent="9" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="69" parent="9" name="updated_at">
+      <column id="71" parent="9" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="70" parent="9" name="patient_allergy_alerts_allergy_id_foreign">
+      <index id="72" parent="9" name="patient_allergy_alerts_allergy_id_foreign">
         <columns>allergy_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="71" parent="9" name="patient_allergy_alerts_patient_id_foreign">
+      <index id="73" parent="9" name="patient_allergy_alerts_patient_id_foreign">
         <columns>patient_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="72" parent="9" name="PRIMARY">
+      <key id="74" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="73" parent="9" name="patient_allergy_alerts_allergy_id_foreign">
+      <foreign-key id="75" parent="9" name="patient_allergy_alerts_allergy_id_foreign">
         <columns>allergy_id</columns>
         <ref-key>~.allergys.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="74" parent="9" name="patient_allergy_alerts_patient_id_foreign">
+      <foreign-key id="76" parent="9" name="patient_allergy_alerts_patient_id_foreign">
         <columns>patient_id</columns>
         <ref-key>~.patients.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="75" parent="10" name="id">
+      <column id="77" parent="10" name="patient_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="76" parent="10" name="patient_id">
-        <mandatory>1</mandatory>
+      <column id="78" parent="10" name="contact_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="77" parent="10" name="medicalalert_id">
-        <mandatory>1</mandatory>
+      <column id="79" parent="10" name="guardian_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="78" parent="10" name="created_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <column id="79" parent="10" name="updated_at">
-        <data-type>timestamp</data-type>
-      </column>
-      <index id="80" parent="10" name="patient_medical_alerts_medicalalert_id_foreign">
-        <columns>medicalalert_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <index id="81" parent="10" name="patient_medical_alerts_patient_id_foreign">
-        <columns>patient_id</columns>
-        <desc-columns></desc-columns>
-      </index>
-      <key id="82" parent="10" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="83" parent="10" name="patient_medical_alerts_medicalalert_id_foreign">
-        <columns>medicalalert_id</columns>
-        <ref-key>~.medical_alerts.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <foreign-key id="84" parent="10" name="patient_medical_alerts_patient_id_foreign">
-        <columns>patient_id</columns>
-        <ref-key>~.patients.PRIMARY</ref-key>
-        <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>restrict</cascade-delete-rule>
-      </foreign-key>
-      <column id="85" parent="11" name="patient_id">
-        <mandatory>1</mandatory>
-        <data-type>int(10) unsigned</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="86" parent="11" name="contact_id">
+      <column id="80" parent="10" name="user_id">
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="87" parent="11" name="guardian_id">
-        <data-type>int(10) unsigned</data-type>
-      </column>
-      <column id="88" parent="11" name="user_id">
-        <data-type>int(10) unsigned</data-type>
-      </column>
-      <column id="89" parent="11" name="patient_nationalid">
+      <column id="81" parent="10" name="patient_cpr">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="90" parent="11" name="patient_dob">
+      <column id="82" parent="10" name="patient_dob">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="91" parent="11" name="patient_gender">
+      <column id="83" parent="10" name="patient_gender">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="92" parent="11" name="patient_insurance">
+      <column id="84" parent="10" name="patient_insurance">
         <data-type>varchar(500)</data-type>
       </column>
-      <column id="93" parent="11" name="created_at">
+      <column id="85" parent="10" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="94" parent="11" name="updated_at">
+      <column id="86" parent="10" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="95" parent="11" name="patients_contact_id_foreign">
+      <index id="87" parent="10" name="patients_contact_id_foreign">
         <columns>contact_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="96" parent="11" name="patients_guardian_id_foreign">
+      <index id="88" parent="10" name="patients_guardian_id_foreign">
         <columns>guardian_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="97" parent="11" name="patients_user_id_foreign">
+      <index id="89" parent="10" name="patients_user_id_foreign">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="98" parent="11" name="PRIMARY">
+      <key id="90" parent="10" name="PRIMARY">
         <columns>patient_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="99" parent="11" name="patients_contact_id_foreign">
+      <foreign-key id="91" parent="10" name="patients_contact_id_foreign">
         <columns>contact_id</columns>
         <ref-key>~.contacts.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="100" parent="11" name="patients_guardian_id_foreign">
+      <foreign-key id="92" parent="10" name="patients_guardian_id_foreign">
         <columns>guardian_id</columns>
         <ref-key>~.guardians.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="101" parent="11" name="patients_user_id_foreign">
+      <foreign-key id="93" parent="10" name="patients_user_id_foreign">
         <columns>user_id</columns>
         <ref-key>~.users.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="102" parent="12" name="permission_id">
+      <column id="94" parent="11" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="95" parent="11" name="first_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="96" parent="11" name="last_name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(500)</data-type>
+      </column>
+      <column id="97" parent="11" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="98" parent="11" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(60)</data-type>
+      </column>
+      <column id="99" parent="11" name="remember_token">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="100" parent="11" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="101" parent="11" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="102" parent="11" name="users_email_unique">
+        <columns>email</columns>
+        <desc-columns></desc-columns>
+        <unique>1</unique>
+      </index>
+      <key id="103" parent="11" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <key id="104" parent="11" name="users_email_unique">
+        <columns>email</columns>
+        <underlying-index>users_email_unique</underlying-index>
+      </key>
+      <column id="105" parent="12" name="doctor_id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="106" parent="12" name="user_id">
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="107" parent="12" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="108" parent="12" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="109" parent="12" name="doctors_user_id_foreign">
+        <columns>user_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="110" parent="12" name="PRIMARY">
+        <columns>doctor_id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="111" parent="12" name="doctors_user_id_foreign">
+        <columns>user_id</columns>
+        <ref-key>~.users.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="112" parent="13" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="113" parent="13" name="patient_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="103" parent="12" name="role_id">
+      <column id="114" parent="13" name="medicalalert_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <index id="104" parent="12" name="permission_role_role_id_foreign">
+      <column id="115" parent="13" name="created_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <column id="116" parent="13" name="updated_at">
+        <data-type>timestamp</data-type>
+      </column>
+      <index id="117" parent="13" name="patient_medical_alerts_medicalalert_id_foreign">
+        <columns>medicalalert_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="118" parent="13" name="patient_medical_alerts_patient_id_foreign">
+        <columns>patient_id</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="119" parent="13" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="120" parent="13" name="patient_medical_alerts_medicalalert_id_foreign">
+        <columns>medicalalert_id</columns>
+        <ref-key>~.medical_alerts.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="121" parent="13" name="patient_medical_alerts_patient_id_foreign">
+        <columns>patient_id</columns>
+        <ref-key>~.patients.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="122" parent="14" name="permission_id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="123" parent="14" name="role_id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <index id="124" parent="14" name="permission_role_role_id_foreign">
         <columns>role_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="105" parent="12" name="PRIMARY">
+      <key id="125" parent="14" name="PRIMARY">
         <columns>permission_id
 role_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="106" parent="12" name="permission_role_permission_id_foreign">
+      <foreign-key id="126" parent="14" name="permission_role_permission_id_foreign">
         <columns>permission_id</columns>
         <ref-key>~.permissions.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="107" parent="12" name="permission_role_role_id_foreign">
+      <foreign-key id="127" parent="14" name="permission_role_role_id_foreign">
         <columns>role_id</columns>
         <ref-key>~.roles.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="108" parent="13" name="id">
+      <column id="128" parent="15" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="109" parent="13" name="name">
+      <column id="129" parent="15" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="110" parent="13" name="display_name">
+      <column id="130" parent="15" name="display_name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="111" parent="13" name="description">
+      <column id="131" parent="15" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="112" parent="13" name="created_at">
+      <column id="132" parent="15" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="113" parent="13" name="updated_at">
+      <column id="133" parent="15" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="114" parent="13" name="permissions_name_unique">
+      <index id="134" parent="15" name="permissions_name_unique">
         <columns>name</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="115" parent="13" name="permissions_name_unique">
+      <key id="135" parent="15" name="permissions_name_unique">
         <columns>name</columns>
         <underlying-index>permissions_name_unique</underlying-index>
       </key>
-      <key id="116" parent="13" name="PRIMARY">
+      <key id="136" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="117" parent="14" name="user_id">
+      <column id="137" parent="16" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="118" parent="14" name="role_id">
+      <column id="138" parent="16" name="role_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <index id="119" parent="14" name="role_user_role_id_foreign">
+      <index id="139" parent="16" name="role_user_role_id_foreign">
         <columns>role_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="120" parent="14" name="PRIMARY">
+      <key id="140" parent="16" name="PRIMARY">
         <columns>user_id
 role_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="121" parent="14" name="role_user_role_id_foreign">
+      <foreign-key id="141" parent="16" name="role_user_role_id_foreign">
         <columns>role_id</columns>
         <ref-key>~.roles.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="122" parent="14" name="role_user_user_id_foreign">
+      <foreign-key id="142" parent="16" name="role_user_user_id_foreign">
         <columns>user_id</columns>
         <ref-key>~.users.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="123" parent="15" name="id">
+      <column id="143" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="124" parent="15" name="name">
+      <column id="144" parent="17" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="125" parent="15" name="display_name">
+      <column id="145" parent="17" name="display_name">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="126" parent="15" name="description">
+      <column id="146" parent="17" name="description">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="127" parent="15" name="created_at">
+      <column id="147" parent="17" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="128" parent="15" name="updated_at">
+      <column id="148" parent="17" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="129" parent="15" name="roles_name_unique">
+      <index id="149" parent="17" name="roles_name_unique">
         <columns>name</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="130" parent="15" name="PRIMARY">
+      <key id="150" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="131" parent="15" name="roles_name_unique">
+      <key id="151" parent="17" name="roles_name_unique">
         <columns>name</columns>
         <underlying-index>roles_name_unique</underlying-index>
       </key>
-      <column id="132" parent="16" name="id">
+      <column id="152" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="133" parent="16" name="user_id">
+      <column id="153" parent="18" name="user_id">
         <data-type>int(11)</data-type>
       </column>
-      <column id="134" parent="16" name="ip_address">
+      <column id="154" parent="18" name="ip_address">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="135" parent="16" name="user_agent">
+      <column id="155" parent="18" name="user_agent">
         <data-type>text</data-type>
       </column>
-      <column id="136" parent="16" name="payload">
+      <column id="156" parent="18" name="payload">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="137" parent="16" name="last_activity">
+      <column id="157" parent="18" name="last_activity">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="138" parent="16" name="sessions_id_unique">
+      <index id="158" parent="18" name="sessions_id_unique">
         <columns>id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="139" parent="16" name="sessions_id_unique">
+      <key id="159" parent="18" name="sessions_id_unique">
         <columns>id</columns>
         <underlying-index>sessions_id_unique</underlying-index>
       </key>
-      <column id="140" parent="17" name="id">
+      <column id="160" parent="19" name="admin_id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="141" parent="17" name="first_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(500)</data-type>
+      <column id="161" parent="19" name="user_id">
+        <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="142" parent="17" name="last_name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(500)</data-type>
-      </column>
-      <column id="143" parent="17" name="email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="144" parent="17" name="password">
-        <mandatory>1</mandatory>
-        <data-type>varchar(60)</data-type>
-      </column>
-      <column id="145" parent="17" name="remember_token">
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="146" parent="17" name="created_at">
+      <column id="162" parent="19" name="created_at">
         <data-type>timestamp</data-type>
       </column>
-      <column id="147" parent="17" name="updated_at">
+      <column id="163" parent="19" name="updated_at">
         <data-type>timestamp</data-type>
       </column>
-      <index id="148" parent="17" name="users_email_unique">
-        <columns>email</columns>
+      <index id="164" parent="19" name="admins_user_id_foreign">
+        <columns>user_id</columns>
         <desc-columns></desc-columns>
-        <unique>1</unique>
       </index>
-      <key id="149" parent="17" name="PRIMARY">
-        <columns>id</columns>
+      <key id="165" parent="19" name="PRIMARY">
+        <columns>admin_id</columns>
         <primary>1</primary>
       </key>
-      <key id="150" parent="17" name="users_email_unique">
-        <columns>email</columns>
-        <underlying-index>users_email_unique</underlying-index>
-      </key>
+      <foreign-key id="166" parent="19" name="admins_user_id_foreign">
+        <columns>user_id</columns>
+        <ref-key>~.users.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
     </database-model>
   </data-source>
 </component>

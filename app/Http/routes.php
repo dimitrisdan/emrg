@@ -54,19 +54,57 @@ Route::group(['middleware' => 'web'], function () {
     | Dashboard Routes
     |--------------------------------------------------------------------------
     */
-
     Route::any('/dashboard', [
-        'uses' => 'PatientController@getDashboard',
+        'uses' => 'UserController@checkRoles',
         'as' => 'dashboard',
-        'middleware' => ['auth', 'patient',]
+        'middleware' => ['auth']
     ]);
 
+    Route::any('/dashboard/patient', [
+        'uses' => 'PatientController@getDashboard',
+        'as' => 'dashboard.patient',
+        'middleware' => ['auth', 'role:pat', 'permission:view-patient', 'permission:edit-patient', 'patient']
+    ]);
+
+    Route::any('/dashboard/doctor', [
+        'uses' => 'DoctorController@getDashboard',
+        'as' => 'dashboard.doctor',
+        'middleware' => ['auth', 'role:doc', 'permission:view-doctor']
+    ]);
+
+    Route::get('/dashboard/admin', [
+        'uses' => 'AdminController@getDashboard',
+        'as' => 'dashboard.admin',
+        'middleware' => ['auth', 'role:admin', 'permission:view-admin']
+    ]);
+
+//    Route::get('/dashboard/patient/{id}', [
+//        'uses' => 'PatientController@getDashboard',
+//        'as' => 'dashboard.patient',
+//        'middleware' => ['auth', 'role:doc', 'permission:view-shared-dashboard', 'patient']
+//    ]);
+    
 //    Route::post('/registration', [
 //        'uses' => 'PatientController@',
 //        'as' => '',
 //        'middleware' => 'auth'
 //    ]);
-
+    /*
+   |--------------------------------------------------------------------------
+   | Roles and Permissions Routes
+   |--------------------------------------------------------------------------
+   */
+    Route::post('/create-role', [
+        'uses' => 'UserController@createRole',
+        'as' => 'role.create',
+        'middleware' => ['auth', 'role:admin']
+    ]);
+    Route::post('/create-permission', [
+        'uses' => 'UserController@createPermission',
+        'as' => 'permission.create',
+        'middleware' => ['auth', 'role:admin']
+    ]);
+    
     /*
     |--------------------------------------------------------------------------
     | Patient Routes
@@ -76,7 +114,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/update-patient', [
         'uses' => 'PatientController@postUpdatePatient',
         'as' => 'patient.update',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     /*

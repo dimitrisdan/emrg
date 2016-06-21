@@ -26,7 +26,7 @@ class CreatePatientsTable extends Migration
             $table->integer('contact_id')->unsigned()->nullable();
             $table->integer('guardian_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('patient_nationalid', 500)->nullable();
+            $table->string('patient_cpr', 500)->nullable();
             $table->string('patient_dob')->nullable();
             $table->string('patient_gender')->nullable();
             $table->string('patient_insurance', 500)->nullable();

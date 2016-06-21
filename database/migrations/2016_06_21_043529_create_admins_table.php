@@ -3,12 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateMedicalalertsTable
- * 
- * Medical Alerts' Database Migration
- */
-class CreateMedicalalertsTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,16 +12,19 @@ class CreateMedicalalertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('medical_alerts', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             # Primary Key
-            $table->increments('medicalalert_id');
-            
+            $table->increments('admin_id');
+
             # Attributes
-            $table->string('medicalalert_description');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
+
+            # Foreign Keys
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->ondelete('cascade');
         });
-        
-        
     }
 
     /**
@@ -36,6 +34,6 @@ class CreateMedicalalertsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('medical_alerts');
+        Schema::drop('admins');
     }
 }

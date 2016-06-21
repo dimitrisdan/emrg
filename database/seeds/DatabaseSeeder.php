@@ -11,6 +11,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        
+
+        
+
+
+
+        
+
+        
+
+        DB::table('medical_alerts')->insert(
+            array(
+                'medicalalert_description' => 'Intolerance to aspirin due to gastrointestinal bleeding.',
+            )
+        );
+        DB::table('medical_alerts')->insert(
+            array(
+                'medicalalert_description' => 'Intolerance to captopril because of cough',
+            )
+        );
+
     }
 }

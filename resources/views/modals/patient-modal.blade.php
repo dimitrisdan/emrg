@@ -10,8 +10,8 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="patient_nationalid">National ID: </label>
-                        <input type="text" class="form-control" name="patient_nationalid" id="patient_nationalid" value="{{ Crypt::decrypt($patient->patient_nationalid) }}">
+                        <label for="patient_cpr">CPR: </label>
+                        <input type="text" class="form-control" name="patient_cpr" id="patient_cpr" value="{{ Crypt::decrypt($patient->patient_cpr) }}">
                     </div>
                     <div class="form-group">
                         <label for="patient_dob">Date of Birth: </label>
