@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\DB;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -27,36 +26,27 @@ class PatientController extends Controller
     public function getPolicies()
     {
         $log = new Logger('patient');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|GetPolicies|Attempt');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/'.Session::get('patient_id').'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|GetPolicies');
 
         //Validation
-
-//        $patient = Patient::find(Session::get('patient_id'));
-//        $role = Role::find(1);
-//        $permissions = DB::table('permission_role')->where('role_id','=', $role->id)->get();
 
         $all_doctors = Doctor::all();
         $doctors=[];
 
         foreach ($all_doctors as $doctor)
         {
-
             $user = User::find($doctor->user_id);
             $doctors[$user->email] = [
                 'id' => $doctor->doctor_id,
                 'name' => Crypt::decrypt($user->first_name) . ' ' .Crypt::decrypt($user->last_name),
                 'profession' => $doctor->profession
             ] ;
-
-//            print_r( $doctor->user());
-//            /echo $doctor->user()->last_name;
         }
-
         $data = [
             'doctors' => $doctors
         ];
-//        print_r($doctors);
+        
         return view('dashboard.policies',$data);
     }
 
@@ -67,16 +57,16 @@ class PatientController extends Controller
     public function postUpdatePatient(Request $request)
     {
         $log = new Logger('patient');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient|Attempt');
-        //Validation
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/'.Session::get('patient_id').'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient');
+        
         $patient = Patient::find($request['id']);
         $patient->patient_cpr = Crypt::encrypt($request['patient_cpr']);
         $patient->patient_dob = $request['patient_dob'];
         $patient->patient_gender = $request['patient_gender'];
         $patient->patient_insurance = Crypt::encrypt($request['patient_insurance']);
         $patient->update();
-        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|UpdatePatient|Updated');
+        
         return view('dashboard');
     }
     
@@ -136,10 +126,7 @@ class PatientController extends Controller
             'medicals' => $patient->medicalAlerts()->get()
         ];
         $log->info('From:' . $log_email . '|Patient:'. $patient->patient_id.'|GetDashboard|DataStored');
-        # Debugging
-//        echo '<pre>';
-//        print_r($data['patient']);
-//        echo '</pre>';
+
         return view('dashboard', $data);
     }
 

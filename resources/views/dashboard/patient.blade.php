@@ -1,7 +1,7 @@
 <?php $i=0; ?>
 <div class="row">
     <div class="col-md-8">
-        <div class="panel panel-danger">
+        <div class="panel panel-default">
             <div class="panel-heading">Allergy Alerts</div>
             <div class="panel-body">
                 @if(isset($allergies))
@@ -33,11 +33,11 @@
                         </table>
                         <br>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#allergy-modal">
+                        <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#allergy-modal">
                             <span class="glyphicon glyphicon-plus"></span> Add Allergy Alert
                         </button>
                     @else
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#allergy-modal">
+                        <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#allergy-modal">
                             <span class="glyphicon glyphicon-plus"></span> Add Allergy Alert
                         </button>
                     @endif
@@ -48,7 +48,7 @@
 
 
 
-        <div class="panel panel-danger">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Medical Alerts
             </div>
@@ -78,11 +78,11 @@
                         </table>
                         <br>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#medical-modal">
+                        <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#medical-modal">
                             <span class="glyphicon glyphicon-plus"></span> Add Medical Alert
                         </button>
                     @else
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#medical-modal">
+                        <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#medical-modal">
                             <span class="glyphicon glyphicon-plus"></span> Add Medical Alert
                         </button>
                     @endif
@@ -93,11 +93,11 @@
     </div>
 
     <div class="col-md-3 col-md-offset-1">
-        <div class="panel panel-warning">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Personal Information
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-warning btn-xs pull-right" data-toggle="modal" data-target="#patient-modal">
+                <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#patient-modal">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
             </div>
@@ -112,7 +112,7 @@
 
         @if(isset($contact))
 
-            <div class="panel panel-warning">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Contact Information
                     <!-- delete -->
@@ -120,12 +120,12 @@
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" id="delete-contact-{{ $contact['contact_id'] }}"  class="btn btn-xs btn-danger">
+                        <button type="submit" id="delete-contact-{{ $contact['contact_id'] }}"  class="btn btn-xs btn-default">
                             <span class="glyphicon glyphicon-trash"></span></button>
                     </form>
 
                     <!-- edit button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-xs pull-right" data-toggle="modal" data-target="#contact-modal" style="margin-right: 10px">
+                    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#contact-modal" style="margin-right: 10px">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>
@@ -144,7 +144,7 @@
         @endif
 
         @if(isset($guardian))
-            <div class="panel panel-warning">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Guardian Information
                     <!-- Button trigger modal -->
@@ -153,12 +153,12 @@
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-xs btn-danger">
+                        <button type="submit" class="btn btn-xs btn-default">
                             <span class="glyphicon glyphicon-trash"></span></button>
                     </form>
 
                     <!-- edit button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-xs pull-right" data-toggle="modal" data-target="#guardian-modal" style="margin-right: 10px">
+                    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#guardian-modal" style="margin-right: 10px">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
                 </div>

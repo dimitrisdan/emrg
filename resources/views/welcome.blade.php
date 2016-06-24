@@ -8,7 +8,7 @@
 
     @include('includes.message-block')
     <div class="row">
-        <div class="col-md-4 col-md-offset-2">
+        <div class="col-md-3 col-md-offset-2">
 
             <h3>Sign Up</h3>
 
@@ -41,7 +41,7 @@
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3 col-md-offset-1">
             <h3>Sign In</h3>
             <form class="form-group {{ $errors->has('email') ? 'has-error' : '' }}" action="{{ route('signin') }}" method="post">
                 <div class="form-group">
@@ -57,9 +57,9 @@
             </form>
             <br>
             <p style="color: grey">
-                //Login testing <br>
+                Accounts for testing <br>
                 Patient: ij@gmail.com, test<br>
-                Doctor: mikedoc@hospital.com, health<br>
+                Doctor: mikedoc@hospital.com, test<br>
                 Admin: admin@gmail.com , admin <br>
             </p>
         </div>

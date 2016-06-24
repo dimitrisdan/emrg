@@ -53,8 +53,11 @@ class UserController extends Controller
         $role->display_name = $request->role_display_name; // optional
         $role->description  = $request->role_description; // optional
         $role->save();
-
-//        print_r($role);
+        
+        $log = new Logger('user_security');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|createRole|RoleId:'.$role->id);
+        
         return redirect()->route('dashboard')->with([
             'msg-status' => 1,
             'msg-message' => 'Role created.'
@@ -66,6 +69,10 @@ class UserController extends Controller
         $role = new Role;
         $role->destroy($request['role_id']);
 
+        $log = new Logger('user_security');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|deleteRole|RoleId:'.$request['role_id']);
+        
         return redirect()->route('dashboard')->with([
             'msg-status' => '2',
             'msg-message' => 'Role deleted.'
@@ -79,6 +86,10 @@ class UserController extends Controller
         $permission->display_name = $request->per_display_name; // optional
         $permission->description  = $request->per_description; // optional
         $permission->save();
+
+        $log = new Logger('user_security');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|createPermission|PermissionId:'.$permission->id);
     }
 
     /**
@@ -112,17 +123,18 @@ class UserController extends Controller
         
         $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
         $log->info('From:' . $request->input('email') . '|SignUp|Success');
-        $log->info('From:' . $request->input('email') . '|SignIn|Attempt');
 
         Auth::login($user);
         
-        $log->info('From:' . Auth::user()->email . '|Id:'. Auth::id() .'|SignIn|Success|');
-
         Session::forget('user_name');
         Session::forget('user_email');
         Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
         Session::put('user_email', $user->email);
 
+        $log = new Logger('user_security');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
+        
         return redirect()->route('dashboard');
     }
 
@@ -138,31 +150,30 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
-
-        // create a log channel
+        
         $log = new Logger('security');
         $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/requests.log', Logger::INFO));
-        // add a record to the log
         $log->info('From:' . $request->input('email') .'|SignIn|Attempt');
-        
         
         if (Auth::attempt([ 'email' => $request['email'], 'password' => $request['password']] )){
 
-//            $role = Role::findOrFail(1);
-//            $user = User::where('email', '=', $request['email'])->first();
-//            $user->attachRole($role);
-
             Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
             Session::put('user_email', $request->user()->email);
-            
-            $log->info('From:' . Session::get('user_email') . '|Id:'. Auth::id() .'|SignIn|Success');
+
+            $log = new Logger('user_security');
+            $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+            $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
             
             return redirect()->route('dashboard');
         
-        }else {
+        }else
+        {
             $log->info('From:' . $request->input('email') . '|SignIn|Failed');
         }
-        return redirect()->back();
+        return redirect()->back()->with([
+            'msg-status' => '2',
+            'msg-message' => 'Login failed. Email or password incorrect!'
+        ]);
     }
 
     /**
@@ -184,8 +195,7 @@ class UserController extends Controller
         {
             $log->info('From:' . Session::get('user_email') . '|LogOut|Success');
         }
-        Session::forget('user_name');
-        Session::forget('user_email');
+        Session::flush();
         return redirect()->route('home');
     }
 }

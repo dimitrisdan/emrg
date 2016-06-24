@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Roles
                 </div>
@@ -20,7 +20,7 @@
                         <textarea class="form-control" name="role_description" id="role_description"></textarea>
                     </div>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
-                    <button type="submit" class="btn btn-primary pull-right">Add Role</button>
+                    <button type="submit" class="btn btn-default pull-right">Add Role</button>
                 </form>
             </div>
         </div>
@@ -30,7 +30,7 @@
 <div class="row">
     <div class="col-md-12">
 
-        <div class="panel panel-primary">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 Permissions
             </div>
@@ -49,7 +49,7 @@
                      <textarea class="form-control" name="permission_description" id="permission_description"></textarea>
                     </div>
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
-                    <button type="submit" class="btn btn-primary pull-right">Add Permission</button>
+                    <button type="submit" class="btn btn-default pull-right">Add Permission</button>
                 </form>
             </div>
         </div>
@@ -60,7 +60,7 @@
 <div class="row">
 
     <div class="col-md-6">
-        <div class="panel panel-danger">
+        <div class="panel panel-default">
             <div class="panel-heading">Users, Roles and Permissions</div>
             <div class="panel-body">
 
@@ -95,7 +95,7 @@
 
     <div class="col-md-6">
 
-        <div class="panel panel-info">
+        <div class="panel panel-default">
             <div class="panel-heading">Roles</div>
             <div class="panel-body">
                 <div class="table-responsive" style="height:250px;overflow:auto">
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="panel panel-info">
+        <div class="panel panel-default">
             <div class="panel-heading">Permissions</div>
             <div class="panel-body">
                 <div class="table-responsive" style="height:250px;overflow:auto">

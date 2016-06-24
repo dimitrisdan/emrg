@@ -8,8 +8,9 @@
     <title>Emergency Records</title>
 
     <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>--}}
+    {{--<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>--}}
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +18,43 @@
 
     <style>
         body {
-            font-family: 'Lato';
+
+            background-color:#eceff1;
+        }
+        body,label{
+            font-family: 'Ubuntu', sans-serif;
+        }
+        nav.navbar{
+            background-color: white;
+            padding-bottom: 0px;
+            margin-bottom: 0;
+        }
+        a.navbar-brand{
+            color: #54b14f;
+        }
+        .panel > .panel-heading {
+            background-image: none;
+            background-color: #fafbfc;
+            color: #54b14f;
+        }
+        button.btn-default{
+            background: #5f5f5f;
+            color: #eceff1;
+        }
+        table th{
+            background: #cfd8dc;
+        }
+
+        #grad {
+
+        }
+
+        hr.style-one {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            height: 4px;
+            background: #54b14f;
         }
 
         .fa-btn {
@@ -25,9 +62,10 @@
         }
         .datepicker{z-index:1151 !important;}
     </style>
+    {{--{{ HTML::style('css/custom.css') }}--}}
 
 </head>
-<body id="app-layout">
+<body id="app-layout" >
 
     @include('layouts.navbar')
 

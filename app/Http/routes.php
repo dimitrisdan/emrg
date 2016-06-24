@@ -37,7 +37,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
         'as' => 'signup',
-//        'middleware' => ['before_signup', 'after_signup']
     ]);
     
     Route::post('/signin', [
@@ -81,19 +80,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/dashboard/policies/', [
         'uses' => 'PatientController@getPolicies',
         'as' => 'dashboard.policies',
-        'middleware' => ['auth', 'role:pat']
+        'middleware' => ['auth', 'role:pat', 'permission:view-patient']
     ]);
-//    Route::get('/dashboard/patient/{id}', [
-//        'uses' => 'PatientController@getDashboard',
-//        'as' => 'dashboard.patient',
-//        'middleware' => ['auth', 'role:doc', 'permission:view-shared-dashboard', 'patient']
-//    ]);
-    
-//    Route::post('/registration', [
-//        'uses' => 'PatientController@',
-//        'as' => '',
-//        'middleware' => 'auth'
-//    ]);
+
     /*
    |--------------------------------------------------------------------------
    | Roles and Permissions Routes
@@ -143,19 +132,19 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/update-contact', [
         'uses' => 'ContactController@postUpdateContact',
         'as' => 'contact.update',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::get('/delete-contact', [
         'uses' => 'ContactController@getDeleteContact',
         'as' => 'contact.create',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::delete('/contact/{contact_id}', [
         'uses' => 'ContactController@deleteContact',
         'as' => 'contact.delete',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
     /*
     |--------------------------------------------------------------------------
@@ -165,19 +154,19 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/update-guardian', [
         'uses' => 'GuardianController@postUpdateGuardian',
         'as' => 'guardian.update',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::get('/delete-guardian', [
         'uses' => 'GuardianController@getDeleteGuardian',
         'as' => 'guardian.delete',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::get('/guardian', [
         'uses' => 'GuardianController@getCreateGuardian',
         'as' => 'guardian.new',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     /*
@@ -188,21 +177,15 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/create-allergy', [
         'uses' => 'AllergyController@createAllergy',
         'as' => 'allergy.create',
-        'middleware' => ['auth', 'logging']
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::get('/delete-allergy', [
         'uses' => 'AllergyController@deleteAllergy',
         'as' => 'allergy.delete',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
-//
-//    Route::get('/allergy', [
-//        'uses' => 'AllergyController@getCreateGuardian',
-//        'as' => 'guardian.new',
-//        'middleware' => 'auth'
-//    ]);
-
+    
     /*
    |--------------------------------------------------------------------------
    | Medical Alert Routes
@@ -211,13 +194,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/create-medicalalert', [
         'uses' => 'MedicalAlertController@createMedicalAlert',
         'as' => 'medicalalert.create',
-        'middleware' => ['auth']
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
     Route::get('/delete-medicalalert', [
         'uses' => 'MedicalAlertController@deleteMedicalAlert',
         'as' => 'medicalalert.delete',
-        'middleware' => 'auth'
+        'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
 
 });

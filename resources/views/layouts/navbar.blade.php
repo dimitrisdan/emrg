@@ -1,5 +1,5 @@
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar">
         <div class="container">
             <div class="navbar-header">
 
@@ -48,3 +48,5 @@
             @endif
         </div>
     </nav>
+    <hr class="style-one">
+    <br>
