@@ -1,10 +1,4 @@
-# Laravel Quickstart - Intermediate - Task List With Authentication
-
-http://laravel.com/docs/quickstart-intermediate
-
-<snippet>
-  <content><![CDATA[
-# ${1:Emergency Health Records}
+# Emergency Health Records
 This web application is built on PHP/Laravel 5.2 and MySQL.
 It is an Emergency Health Records Framework hosted in the Azure Cloud Platform
 
