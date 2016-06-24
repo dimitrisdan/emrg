@@ -1,15 +1,18 @@
 # Emergency Health Records System
-This web application is built on PHP/Laravel 5.2 and MySQL.
-It is an [Emergency Health Records Framework](https://emrg.azurewebsites.net/) hosted in the Azure Cloud Platform.
+This is a prototype built in PHP/Laravel 5.2 and MySQL.
+It is an [Emergency Health Records System](https://emrg.azurewebsites.net/) hosted in the Azure Cloud Platform.
 
 
 
 ## Installation
+git clone
 composer install
 
 
-## Usage
-TODO: Write usage instructions
+## Security
+HTTPS/SSL
+Data Encryption
+Auditing
 
 ## Contributing
 
