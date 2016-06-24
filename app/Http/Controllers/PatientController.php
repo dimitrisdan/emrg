@@ -22,7 +22,24 @@ use Monolog\Handler\StreamHandler;
  */
 class PatientController extends Controller
 {
-    
+    public function getPolicies(Request $request)
+    {
+        $log = new Logger('patient');
+        $log->pushHandler(new StreamHandler( storage_path().'/logs/patients_logs/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|Patient:'.Session::get('patient_id').'|GetPolicies|Attempt');
+
+        //Validation
+
+        $patient = Patient::find($request['id']);
+        $role = Role::find(1);
+        $permissions = DB::table('permission_role')->where('role_id','=', $role->id)->get();
+        
+//        $doctors =
+        
+        
+        return redirect('dashboard', []);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
