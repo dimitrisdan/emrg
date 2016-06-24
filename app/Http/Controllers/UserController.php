@@ -191,11 +191,12 @@ class UserController extends Controller
         $log->info('From:' . Session::get('user_email') . '|LogOut|Attempt');
     
         Auth::logout();
+
         if(!Auth::check())
         {
             $log->info('From:' . Session::get('user_email') . '|LogOut|Success');
         }
-        Session::flush();
+//        Session::flush();
         return redirect()->route('home');
     }
 }
