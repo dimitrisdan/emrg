@@ -81,7 +81,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/dashboard/policies/', [
         'uses' => 'PatientController@getPolicies',
         'as' => 'dashboard.policies',
-        'middleware' => ['auth', 'role:patient']
+        'middleware' => ['auth', 'role:pat']
     ]);
 //    Route::get('/dashboard/patient/{id}', [
 //        'uses' => 'PatientController@getDashboard',
