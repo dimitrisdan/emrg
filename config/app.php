@@ -205,6 +205,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Uuid'      => Webpatser\Uuid\Uuid::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+
     ],
 
 ];

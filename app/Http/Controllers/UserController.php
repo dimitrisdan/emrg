@@ -9,12 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
-
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-
-use Zizaco\Entrust\Traits\EntrustUserTrait;
-
 
 
 /**
@@ -29,15 +25,24 @@ class UserController extends Controller
         
         if ($user->hasRole('doc'))
         {
-            return redirect()->route('dashboard.doctor');
+            return redirect()->route('dashboard.doctor')->with([
+                'msg-status' => Session::get('msg-status'),
+                'msg-message' => Session::get('msg-message')
+            ]);
         }
         elseif ($user->hasRole('pat'))
         {
-            return redirect()->route('dashboard.patient');
+            return redirect()->route('dashboard.patient')->with([
+                'msg-status' => Session::get('msg-status'),
+                'msg-message' => Session::get('msg-message')
+            ]);
         }
         elseif ($user->hasRole('admin'))
         {
-            return redirect()->route('dashboard.admin');
+            return redirect()->route('dashboard.admin')->with([
+                'msg-status' => Session::get('msg-status'),
+                'msg-message' => Session::get('msg-message')
+            ]);
         }
     }
 
@@ -48,6 +53,23 @@ class UserController extends Controller
         $role->display_name = $request->role_display_name; // optional
         $role->description  = $request->role_description; // optional
         $role->save();
+
+//        print_r($role);
+        return redirect()->route('dashboard')->with([
+            'msg-status' => 1,
+            'msg-message' => 'Role created.'
+        ]);
+    }
+
+    public function deleteRole(Request $request)
+    {
+        $role = new Role;
+        $role->destroy($request['role_id']);
+
+        return redirect()->route('dashboard')->with([
+            'msg-status' => '2',
+            'msg-message' => 'Role deleted.'
+        ]);
     }
 
     public function createPermission(Request $request)

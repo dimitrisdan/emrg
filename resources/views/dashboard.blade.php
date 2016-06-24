@@ -13,4 +13,5 @@
     @role('pat')
         @include('dashboard.patient')
     @endrole
+
 @endsection

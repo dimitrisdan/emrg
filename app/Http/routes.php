@@ -99,9 +99,21 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'role.create',
         'middleware' => ['auth', 'role:admin']
     ]);
+
+    Route::delete('/delete-role', [
+        'uses' => 'UserController@deleteRole',
+        'as' => 'role.delete',
+        'middleware' => ['auth', 'role:admin']
+    ]);
+    
     Route::post('/create-permission', [
         'uses' => 'UserController@createPermission',
         'as' => 'permission.create',
+        'middleware' => ['auth', 'role:admin']
+    ]);
+    Route::delete('/delete-permission', [
+        'uses' => 'UserController@deletePermission',
+        'as' => 'permission.delete',
         'middleware' => ['auth', 'role:admin']
     ]);
     

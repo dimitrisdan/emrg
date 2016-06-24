@@ -9,4 +9,14 @@ use Zizaco\Entrust\EntrustRole;
  */
 class Role extends EntrustRole
 {
+    /**
+     * Model Config
+     */
+    protected $table = 'roles';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'id', 'name', 'display_name','description'
+    ];
 }
