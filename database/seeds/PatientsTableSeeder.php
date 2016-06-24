@@ -184,9 +184,11 @@ class PatientsTableSeeder extends Seeder
 
         DB::table('doctors')->insert([
             'user_id' => 61,
+            'profession' => 'Cardiologist'
         ]);
         DB::table('doctors')->insert([
             'user_id' => 71,
+            'profession' => 'Dermatologist'
         ]);
     }
 }

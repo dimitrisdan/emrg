@@ -18,6 +18,7 @@ class CreateDoctorsTable extends Migration
 
             # Attributes
             $table->integer('user_id')->unsigned()->nullable();
+            $table->string('profession',255);
             $table->timestamps();
 
             # Foreign Keys
