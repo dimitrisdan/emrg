@@ -55,6 +55,13 @@
                 <button type="submit" class="btn btn-primary">Log in</button>
                 <input type="hidden" name="_token" value="{{ Session::token() }}">
             </form>
+            <br>
+            <p style="color: grey">
+                //Login testing <br>
+                Patient: ij@gmail.com, test<br>
+                Doctor: mikedoc@hospital.com, health<br>
+                Admin: admin@gmail.com , admin <br>
+            </p>
         </div>
     </div>
 @endsection
