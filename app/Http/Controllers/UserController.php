@@ -124,14 +124,14 @@ class UserController extends Controller
             '45', $user->phone_number
         );
 
-        try {
-            Authy::getProvider()->register($user);
-            $user->save();
-
-        } catch (Exception $e) {
-            app(ExceptionHandler::class)->report($e);
-            return response()->json(['error' => ['Unable To Register User']], 422);
-        }
+//        try {
+//            Authy::getProvider()->register($user);
+//            $user->save();
+//
+//        } catch (Exception $e) {
+//            app(ExceptionHandler::class)->report($e);
+//            return response()->json(['error' => ['Unable To Register User']], 422);
+//        }
 //
 ////        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
 ////        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
