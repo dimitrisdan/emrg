@@ -126,44 +126,43 @@ class UserController extends Controller
 
         try {
             Authy::getProvider()->register($user);
-
             $user->save();
+
         } catch (Exception $e) {
             app(ExceptionHandler::class)->report($e);
-
             return response()->json(['error' => ['Unable To Register User']], 422);
         }
-        
-//        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
-//        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
-
-
-        $role = Role::where('name','=', $request['role'])->first();
-        $user->attachRole($role->id);
-
-        $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
-        $log->info('From:' . $request->input('email') . '|SignUp|Success');
-
-        Auth::login($user);
-
-        Session::forget('user_name');
-        Session::forget('user_email');
-        Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
-        Session::put('user_email', $user->email);
-
-        $log = new Logger('user_security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
-
-
-        try {
-            Authy::getProvider()->sendSmsToken($user);
-        } catch (Exception $e) {
-            app(ExceptionHandler::class)->report($e);
-
-            return response()->json(['error' => ['Unable To Send 2FA Login Token']], 422);
-        }
-        return view('twofactor');
+//
+////        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
+////        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
+//
+//
+//        $role = Role::where('name','=', $request['role'])->first();
+//        $user->attachRole($role->id);
+//
+//        $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
+//        $log->info('From:' . $request->input('email') . '|SignUp|Success');
+//
+//        Auth::login($user);
+//
+//        Session::forget('user_name');
+//        Session::forget('user_email');
+//        Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
+//        Session::put('user_email', $user->email);
+//
+//        $log = new Logger('user_security');
+//        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
+//        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
+//
+//
+//        try {
+//            Authy::getProvider()->sendSmsToken($user);
+//        } catch (Exception $e) {
+//            app(ExceptionHandler::class)->report($e);
+//
+//            return response()->json(['error' => ['Unable To Send 2FA Login Token']], 422);
+//        }
+//        return view('twofactor');
     }
 
     /**
