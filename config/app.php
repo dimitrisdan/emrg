@@ -158,6 +158,8 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
 
+        Srmklive\Authy\AuthyServiceProvider::class
+
     ],
 
     /*
@@ -203,8 +205,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
         'Uuid'      => Webpatser\Uuid\Uuid::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Authy' => Srmklive\Authy\Facades\Authy::class // Laravel 5.1 or greater
 
     ],
 

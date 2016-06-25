@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Permission;
 use App\User;
 use App\Role;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-
+use Srmklive\Authy\Facades\Authy;
 
 /**
  * Class UserController
@@ -115,17 +116,36 @@ class UserController extends Controller
         $user -> email = $request['email'];
         $user -> first_name = Crypt::encrypt($request['first_name']);
         $user -> last_name = Crypt::encrypt($request['last_name']);
+        $user -> phone_number = $request['phone_number'];
         $user -> password = bcrypt($request['password']);
-        $user -> save();
+//        $user -> save();
+
+        $user->setAuthPhoneInformation(
+            '45', $user->phone_number
+        );
+
+        try {
+            Authy::getProvider()->register($user);
+
+            $user->save();
+        } catch (Exception $e) {
+            app(ExceptionHandler::class)->report($e);
+
+            return response()->json(['error' => ['Unable To Register User']], 422);
+        }
+        
+//        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
+//        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
+
 
         $role = Role::where('name','=', $request['role'])->first();
         $user->attachRole($role->id);
-        
+
         $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
         $log->info('From:' . $request->input('email') . '|SignUp|Success');
 
         Auth::login($user);
-        
+
         Session::forget('user_name');
         Session::forget('user_email');
         Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
@@ -134,8 +154,16 @@ class UserController extends Controller
         $log = new Logger('user_security');
         $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
         $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
-        
-        return redirect()->route('dashboard');
+
+
+        try {
+            Authy::getProvider()->sendSmsToken($user);
+        } catch (Exception $e) {
+            app(ExceptionHandler::class)->report($e);
+
+            return response()->json(['error' => ['Unable To Send 2FA Login Token']], 422);
+        }
+        return view('twofactor');
     }
 
     /**
@@ -154,7 +182,9 @@ class UserController extends Controller
         $log = new Logger('security');
         $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/requests.log', Logger::INFO));
         $log->info('From:' . $request->input('email') .'|SignIn|Attempt');
-        
+
+//        $authy_api = new Authy\AuthyApi('#your_api_key');
+
         if (Auth::attempt([ 'email' => $request['email'], 'password' => $request['password']] )){
 
             Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));

@@ -5,26 +5,31 @@ namespace App;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Srmklive\Authy\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
+use Srmklive\Authy\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
 
 /**
  * @property integer id
  * @property string first_name
  * @property string last_name
  * @property string email
+ * @property string country_code
+ * @property string phone_number
  * @property string password
  */
-class User extends Authenticatable
+class User extends Authenticatable implements TwoFactorAuthenticatableContract
 {
-    use EntrustUserTrait; // add this trait to your user model
+
+    use EntrustUserTrait, TwoFactorAuthenticatable; // add this trait to your user model
     /**
      * @var array
      */
     protected $fillable = [
-        'email','first_name','last_name'
+        'email','first_name','last_name','phone_number'
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'two_factor_options'
     ];
 
     /**

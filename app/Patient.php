@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer contact_id
  * @property integer guardian_id
  * @property integer user_id
- * @property string patient_nationalid
+ * @property string patient_cpr
  * @property string patient_dob
  * @property string patient_insurance
  * @property string patient_gender

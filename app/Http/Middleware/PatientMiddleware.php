@@ -69,7 +69,7 @@ class PatientMiddleware
             $patient->user_id = $user->id; 
             $patient->contact_id = $contact->contact_id;
             $patient->guardian_id = $guardian->guardian_id; 
-            $patient->patient_nationalid = Crypt::encrypt('XXXXXXX');
+            $patient->patient_cpr = Crypt::encrypt('XXXXXXX');
             $patient->patient_insurance = Crypt::encrypt('1111111');
             $patient->patient_gender = 'male';
             $patient->patient_dob = date("Y/m/d");

@@ -19,11 +19,20 @@
                 </div>
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     <label for="first_name">First Name</label>
-                    <input class="form-control" type="text" name="first_name" id="first_name" value="{{ Request::old('name') }}">
+                    <input class="form-control" type="text" name="first_name" id="first_name" value="{{ Request::old('first_name') }}">
                 </div>
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     <label for="last_name">Last Name</label>
-                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ Request::old('name') }}">
+                    <input class="form-control" type="text" name="last_name" id="last_name" value="{{ Request::old('last_name') }}">
+                </div>
+                {{--<div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">--}}
+                    {{--<label for="authy-countries">Country</label><br>--}}
+                    {{--<select class="form-control" id="authy-countries" data-show-as="number"></select>--}}
+                {{--</div>--}}
+                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                    <label for="authy-cellphone">Phone Number</label>
+                    <input id="authy-cellphone"  name="phone_number" type="text" value=""/>
+                    {{--<input class="form-control" type="text" name="phone_number" id="authy-cellphone" value="{{ Request::old('phone_number') }}">--}}
                 </div>
                 <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                     <label for="password">Your password</label>
