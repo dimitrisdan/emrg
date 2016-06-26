@@ -50,7 +50,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/get-token', [
         'uses' => 'UserController@getTwoFactor',
         'as' => 'twofactor',
-        'middleware' => ['auth','2fa']
+//        'middleware' => ['auth','2fa']
+        'middleware' => ['auth']
     ]);
 
     /*
