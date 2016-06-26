@@ -33,6 +33,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::get('/python', function () {
+        return view('python.fingerprint');
+    })->name('python');
     
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
