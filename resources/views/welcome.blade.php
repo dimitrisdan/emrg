@@ -30,7 +30,7 @@
                     {{--<select class="form-control" id="authy-countries" data-show-as="number"></select>--}}
                 {{--</div>--}}
                 <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : '' }}">
-                    <label for="authy-cellphone">Phone Number</label>
+                    <label for="authy-cellphone">Phone Number</label><br>
                     <input id="authy-cellphone"  name="phone_number" type="text" value="{{ Request::old('phone_number') }}"/>
                     {{--<input class="form-control" type="text" name="phone_number" id="authy-cellphone" value="{{ Request::old('phone_number') }}">--}}
                 </div>
