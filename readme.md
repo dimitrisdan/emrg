@@ -11,11 +11,12 @@ It is an [Emergency Health Records System](https://emrg.azurewebsites.net/) host
 6. php artisan cache:clear
 
 ## Security
-Role-Based Access Control
-HTTPS/SSL
-Data Encryption
-Auditing
-Fingerprint Recognition(on progress)
+1. Two-factor Authentication(on progress)
+2. HTTPS/SSL
+3. Data Encryption
+4. Auditing
+5. Fingerprint Recognition(on progress)
+6. Role-Based Access Control
 
 ## Contributing
 
