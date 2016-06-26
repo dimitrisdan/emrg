@@ -13,7 +13,7 @@ use Srmklive\Authy\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenti
  * @property string first_name
  * @property string last_name
  * @property string email
- * @property string country_code
+ * @property string phone_country_code
  * @property string phone_number
  * @property string password
  */

@@ -20,26 +20,30 @@ use Srmklive\Authy\Facades\Authy;
  */
 class UserController extends Controller
 {
-    public function checkRoles()
+    public function checkRolesToken(Request $request)
     {
         $user = Auth::user();
-        
-        if ($user->hasRole('doc'))
-        {
+
+        $token = $request['token'];
+
+        try {
+            Authy::getProvider()->tokenIsValid($user, $token);
+        } catch (Exception $e) {
+            app(ExceptionHandler::class)->report($e);
+            return response()->json(['error' => ['Invalid 2FA Login Token Provided']], 422);
+        }
+
+        if ($user->hasRole('doc')) {
             return redirect()->route('dashboard.doctor')->with([
                 'msg-status' => Session::get('msg-status'),
                 'msg-message' => Session::get('msg-message')
             ]);
-        }
-        elseif ($user->hasRole('pat'))
-        {
+        } elseif ($user->hasRole('pat')) {
             return redirect()->route('dashboard.patient')->with([
                 'msg-status' => Session::get('msg-status'),
                 'msg-message' => Session::get('msg-message')
             ]);
-        }
-        elseif ($user->hasRole('admin'))
-        {
+        } elseif ($user->hasRole('admin')) {
             return redirect()->route('dashboard.admin')->with([
                 'msg-status' => Session::get('msg-status'),
                 'msg-message' => Session::get('msg-message')
@@ -52,13 +56,13 @@ class UserController extends Controller
         $role = new Role();
         $role->name = $request->role_name;
         $role->display_name = $request->role_display_name; // optional
-        $role->description  = $request->role_description; // optional
+        $role->description = $request->role_description; // optional
         $role->save();
-        
+
         $log = new Logger('user_security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|createRole|RoleId:'.$role->id);
-        
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|createRole|RoleId:' . $role->id);
+
         return redirect()->route('dashboard')->with([
             'msg-status' => 1,
             'msg-message' => 'Role created.'
@@ -71,9 +75,9 @@ class UserController extends Controller
         $role->destroy($request['role_id']);
 
         $log = new Logger('user_security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|deleteRole|RoleId:'.$request['role_id']);
-        
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|deleteRole|RoleId:' . $request['role_id']);
+
         return redirect()->route('dashboard')->with([
             'msg-status' => '2',
             'msg-message' => 'Role deleted.'
@@ -85,23 +89,23 @@ class UserController extends Controller
         $permission = new Permission();
         $permission->name = $request->per_name;
         $permission->display_name = $request->per_display_name; // optional
-        $permission->description  = $request->per_description; // optional
+        $permission->description = $request->per_description; // optional
         $permission->save();
 
         $log = new Logger('user_security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|createPermission|PermissionId:'.$permission->id);
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|createPermission|PermissionId:' . $permission->id);
     }
 
     /**
-     * New Users Sign-Up 
-     * 
+     * New Users Sign-Up
+     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postSignUp(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'email' => 'required|email|unique:users',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
@@ -109,96 +113,75 @@ class UserController extends Controller
         ]);
 
         $log = new Logger('security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/requests.log', Logger::INFO));
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/requests.log', Logger::INFO));
         $log->info('From:' . $request->input('email') . '|SignUp|Attempt');
 
         $user = new User();
-        $user -> email = $request['email'];
-        $user -> first_name = Crypt::encrypt($request['first_name']);
-        $user -> last_name = Crypt::encrypt($request['last_name']);
-        $user -> phone_number = $request['phone_number'];
-        $user -> password = bcrypt($request['password']);
-//        $user -> save();
+        $user->email = $request['email'];
+        $user->first_name = Crypt::encrypt($request['first_name']);
+        $user->last_name = Crypt::encrypt($request['last_name']);
+        $user->phone_number = $request['phone_number'];
+        $user->phone_country_code = '45';
+        $user->password = bcrypt($request['password']);
+        $user->save();
 
-        $user->setAuthPhoneInformation(
-            '45', $user->phone_number
-        );
 
-//        try {
-//            Authy::getProvider()->register($user);
-//            $user->save();
-//
-//        } catch (Exception $e) {
-//            app(ExceptionHandler::class)->report($e);
-//            return response()->json(['error' => ['Unable To Register User']], 422);
-//        }
-//
-////        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
-////        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
-//
-//
-//        $role = Role::where('name','=', $request['role'])->first();
-//        $user->attachRole($role->id);
-//
-//        $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
-//        $log->info('From:' . $request->input('email') . '|SignUp|Success');
-//
-//        Auth::login($user);
-//
-//        Session::forget('user_name');
-//        Session::forget('user_email');
-//        Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
-//        Session::put('user_email', $user->email);
-//
-//        $log = new Logger('user_security');
-//        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-//        $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
-//
-//
-//        try {
-//            Authy::getProvider()->sendSmsToken($user);
-//        } catch (Exception $e) {
-//            app(ExceptionHandler::class)->report($e);
-//
-//            return response()->json(['error' => ['Unable To Send 2FA Login Token']], 422);
-//        }
-//        return view('twofactor');
+//        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
+//        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
+
+
+        $role = Role::where('name', '=', $request['role'])->first();
+        $user->attachRole($role->id);
+
+        $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
+        $log->info('From:' . $request->input('email') . '|SignUp|Success');
+
+        Auth::login($user);
+
+        Session::forget('user_name');
+        Session::forget('user_email');
+        Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
+        Session::put('user_email', $user->email);
+
+        $log = new Logger('user_security');
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+        $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
+
+        return redirect()->route('twofactor');
     }
 
     /**
      * Sign-In for registered users
-     * 
+     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postSignIn(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'email' => 'required',
             'password' => 'required'
         ]);
-        
+
         $log = new Logger('security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/requests.log', Logger::INFO));
-        $log->info('From:' . $request->input('email') .'|SignIn|Attempt');
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/requests.log', Logger::INFO));
+        $log->info('From:' . $request->input('email') . '|SignIn|Attempt');
 
-//        $authy_api = new Authy\AuthyApi('#your_api_key');
-
-        if (Auth::attempt([ 'email' => $request['email'], 'password' => $request['password']] )){
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
 
             Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
             Session::put('user_email', $request->user()->email);
 
             $log = new Logger('user_security');
-            $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/user/'.Auth::id().'/requests.log', Logger::INFO));
-            $log->info('From:' . Session::get('user_email') . '|UserId:'. Auth::id() .'|SignIn|Success');
-            
-            return redirect()->route('dashboard');
-        
-        }else
-        {
+            $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+            $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
+
+            return redirect()->route('twofactor');
+
+        } else {
             $log->info('From:' . $request->input('email') . '|SignIn|Failed');
         }
+
         return redirect()->back()->with([
             'msg-status' => '2',
             'msg-message' => 'Login failed. Email or password incorrect!'
@@ -207,25 +190,28 @@ class UserController extends Controller
 
     /**
      * User Logout
-     * 
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getLogout()
     {
         // create a log channel
         $log = new Logger('security');
-        $log->pushHandler(new StreamHandler( storage_path().'/logs/security_logs/requests.log', Logger::INFO));
+        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/requests.log', Logger::INFO));
         // add a record to the log
-        
+
         $log->info('From:' . Session::get('user_email') . '|LogOut|Attempt');
-    
+
         Auth::logout();
 
-        if(!Auth::check())
-        {
+        if (!Auth::check()) {
             $log->info('From:' . Session::get('user_email') . '|LogOut|Success');
         }
 //        Session::flush();
         return redirect()->route('home');
+    }
+    public function getTwoFactor()
+    {
+        return view('twofactor');
     }
 }

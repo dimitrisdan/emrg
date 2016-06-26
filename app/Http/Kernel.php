@@ -54,10 +54,7 @@ class Kernel extends HttpKernel
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         
         'patient' => \App\Http\Middleware\PatientMiddleware::class,
-        # Logs
-        'before_signup' => \App\Http\Middleware\BeforeSignUpMiddleware::class,
-        'after_signup' => \App\Http\Middleware\AfterSignUpMiddleware::class,
-        
-        
+
+        '2fa' => \App\Http\Middleware\TwoFactor::class,
     ];
 }

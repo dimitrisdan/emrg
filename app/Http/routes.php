@@ -41,11 +41,16 @@ Route::group(['middleware' => 'web'], function () {
     
     Route::post('/signin', [
         'uses' => 'UserController@postSignIn',
-        'as' => 'signin'
+        'as' => 'signin',
     ]);
     Route::get('/logout', [
         'uses' => 'UserController@getLogout',
         'as' => 'logout'
+    ]);
+    Route::get('/get-token', [
+        'uses' => 'UserController@getTwoFactor',
+        'as' => 'twofactor',
+        'middleware' => ['auth','2fa']
     ]);
 
     /*
@@ -54,7 +59,7 @@ Route::group(['middleware' => 'web'], function () {
     |--------------------------------------------------------------------------
     */
     Route::any('/dashboard', [
-        'uses' => 'UserController@checkRoles',
+        'uses' => 'UserController@checkRolesToken',
         'as' => 'dashboard',
         'middleware' => ['auth']
     ]);
