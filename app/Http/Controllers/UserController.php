@@ -138,6 +138,8 @@ class UserController extends Controller
 
         Auth::login($user);
 
+        $this->registerUserAuthy();
+
         Session::forget('user_name');
         Session::forget('user_email');
         Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
@@ -180,7 +182,7 @@ class UserController extends Controller
         $log->info('From:' . $request->input('email') . '|SignIn|Attempt');
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
-            $this->registerUserAuthy();
+
             Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
             Session::put('user_email', $request->user()->email);
 
