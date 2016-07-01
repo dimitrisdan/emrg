@@ -20,14 +20,7 @@ class TwoFactor
         $response = $next($request);
 
         $user = Auth::user();
-//
 
-        try {
-            Authy::getProvider()->register($user);
-        } catch (Exception $e) {
-            app(ExceptionHandler::class)->report($e);
-            return response()->json(['error' => ['Unable To Register User']], 422);
-        }
         try
         {
             Authy::getProvider()->sendSmsToken($user);

@@ -150,6 +150,18 @@ class UserController extends Controller
         return redirect()->route('twofactor');
     }
 
+    private function registerUserAuthy()
+    {
+        $user = Auth::user();
+        try {
+            Authy::getProvider()->register($user);
+        } catch (Exception $e) {
+            app(ExceptionHandler::class)->report($e);
+            return false;
+//            return response()->json(['error' => ['Unable To Register User']], 422);
+        }
+        return true;
+    }
     /**
      * Sign-In for registered users
      *
@@ -168,7 +180,7 @@ class UserController extends Controller
         $log->info('From:' . $request->input('email') . '|SignIn|Attempt');
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
-
+            $this->registerUserAuthy();
             Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
             Session::put('user_email', $request->user()->email);
 

@@ -42,15 +42,17 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@postSignUp',
         'as' => 'signup',
     ]);
-    
+
     Route::post('/signin', [
         'uses' => 'UserController@postSignIn',
         'as' => 'signin',
     ]);
+    
     Route::get('/logout', [
         'uses' => 'UserController@getLogout',
         'as' => 'logout'
     ]);
+    
     Route::get('/get-token', [
         'uses' => 'UserController@getTwoFactor',
         'as' => 'twofactor',
