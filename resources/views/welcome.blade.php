@@ -62,7 +62,7 @@
                     <input class="form-control" type="password" name="password" id="password" value="{{ Request::old('password') }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Log in</button>
-                <input type="hidden" name="_token" value="{{ Session::token() }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
             </form>
             <br>
             <p style="color: grey">

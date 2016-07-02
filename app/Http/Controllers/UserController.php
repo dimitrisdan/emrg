@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use Srmklive\Authy\Facades\Authy;
+use Ixudra\Curl\Facades\Curl;
 
 /**
  * Class UserController
@@ -23,15 +23,6 @@ class UserController extends Controller
     public function checkRolesToken(Request $request)
     {
         $user = Auth::user();
-
-        $token = $request['token'];
-
-        try {
-            Authy::getProvider()->tokenIsValid($user, $token);
-        } catch (Exception $e) {
-            app(ExceptionHandler::class)->report($e);
-            return response()->json(['error' => ['Invalid 2FA Login Token Provided']], 422);
-        }
 
         if ($user->hasRole('doc')) {
             return redirect()->route('dashboard.doctor')->with([
@@ -126,44 +117,59 @@ class UserController extends Controller
         $user->save();
 
 
-//        $authy_api = new Authy\AuthyApi('KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz');
-//        $authy_user = $authy_api->registerUser($user->email, $user->phone_number, 'da'); //email, cellphone, country_code
-
-
         $role = Role::where('name', '=', $request['role'])->first();
         $user->attachRole($role->id);
 
         $log->info('From:' . $request->input('email') . '|AssignedRole|Success');
         $log->info('From:' . $request->input('email') . '|SignUp|Success');
 
+        $authy_api_key = env('AUTHY_LIVE_KEY');
+        $url =  'https://api.authy.com/protected/json/users/new?api_key=' .$authy_api_key;
+
+//        echo $user->email.'<br>';
+//        echo $user->phone_number.'<br>';
+//        echo $user->phone_country_code.'<br>';
+        $register_response = Curl::to($url)
+            ->withData( array(
+                'user[email]' => $user->email ,
+                'user[cellphone]' => $user->phone_number,
+                'user[country_code]' => $user->phone_country_code
+            ) )
+            ->enableDebug(storage_path() . '/logs/authy/logFile.txt')
+            ->post();
+
+        $json = json_decode($register_response, true);
+//        echo '<pre>reg<br>' . print_r($json, true) . '</pre>';
+
+        $user->authy_id = $json['user']['id'];
+        $user->update();
+
         Auth::login($user);
 
-        $this->registerUserAuthy();
+        $sms_response = Curl::to('https://api.authy.com/protected/json/sms/'.$user->authy_id.'?api_key=KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz')
+            ->get();
 
-        Session::forget('user_name');
-        Session::forget('user_email');
-        Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
-        Session::put('user_email', $user->email);
+        $json_sms = json_decode($sms_response, true);
 
-        $log = new Logger('user_security');
-        $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
-        $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
-
-        return redirect()->route('twofactor');
-    }
-
-    private function registerUserAuthy()
-    {
-        $user = Auth::user();
-        try {
-            Authy::getProvider()->register($user);
-        } catch (Exception $e) {
-            app(ExceptionHandler::class)->report($e);
-            return false;
-//            return response()->json(['error' => ['Unable To Register User']], 422);
+        if (!$json['success'] || !$json_sms['success']){
+//            echo '<pre>paok' . print_r($json_sms, true) . '</pre>';
+            return view('errors.503');
         }
-        return true;
+        else
+        {
+            Session::forget('user_name');
+            Session::forget('user_email');
+            Session::put('user_name', Crypt::decrypt($user->first_name) . ' ' . Crypt::decrypt($user->last_name));
+            Session::put('user_email', $user->email);
+
+            $log = new Logger('user_security');
+            $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+            $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
+
+            return view('twofactor');
+        }
     }
+
     /**
      * Sign-In for registered users
      *
@@ -183,14 +189,27 @@ class UserController extends Controller
 
         if (Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {
 
-            Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
-            Session::put('user_email', $request->user()->email);
+            $user = Auth::user();
+            $sms_response = Curl::to('https://api.authy.com/protected/json/sms/'.$user->authy_id.'?api_key=KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz')
+                ->get();
 
-            $log = new Logger('user_security');
-            $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
-            $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
+            $json_sms = json_decode($sms_response, true);
+            if (!$json_sms['success']){
+//            echo '<pre>paok' . print_r($json_sms, true) . '</pre>';
+                return view('errors.503');
+            }
+            else
+            {
+                Session::put('user_name', Crypt::decrypt($request->user()->first_name) . ' ' . Crypt::decrypt($request->user()->last_name));
+                Session::put('user_email', $request->user()->email);
 
-            return redirect()->route('twofactor');
+                $log = new Logger('user_security');
+                $log->pushHandler(new StreamHandler(storage_path() . '/logs/security_logs/user/' . Auth::id() . '/requests.log', Logger::INFO));
+                $log->info('From:' . Session::get('user_email') . '|UserId:' . Auth::id() . '|SignIn|Success');
+
+                return view('twofactor');
+            }
+
 
         } else {
             $log->info('From:' . $request->input('email') . '|SignIn|Failed');

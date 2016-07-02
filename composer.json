@@ -10,7 +10,7 @@
         "webpatser/laravel-uuid": "2.*",
         "zizaco/entrust": "5.2.x-dev",
         "srmklive/authy": "^0.4.0",
-        "guzzlehttp/guzzle": "~4.0"
+        "ixudra/curl": "6.*"
 
     },
     "require-dev": {

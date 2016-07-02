@@ -28,7 +28,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label">Enter Token</label>
               <div class="col-md-6">
-                <input id="authy-token" type="string" class="form-control" name="token" value="">
+                <input id="authy-token" type="string" class="form-control" name="authy_token" value="">
               </div>
             </div>
 

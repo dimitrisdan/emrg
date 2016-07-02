@@ -157,8 +157,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Zizaco\Entrust\EntrustServiceProvider::class,
-
-        Srmklive\Authy\AuthyServiceProvider::class
+        Srmklive\Authy\AuthyServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
 
     ],
 
@@ -208,7 +208,8 @@ return [
 
         'Uuid'      => Webpatser\Uuid\Uuid::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        'Authy' => Srmklive\Authy\Facades\Authy::class // Laravel 5.1 or greater
+        'Authy'     => Srmklive\Authy\Facades\Authy::class, // Laravel 5.1 or greater
+        'Curl'      => Ixudra\Curl\Facades\Curl::class,
 
     ],
 
