@@ -10,6 +10,7 @@ use Srmklive\Authy\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenti
 
 /**
  * @property integer id
+ * @property string authy_id
  * @property string first_name
  * @property string last_name
  * @property string email
@@ -25,7 +26,7 @@ class User extends Authenticatable implements TwoFactorAuthenticatableContract
      * @var array
      */
     protected $fillable = [
-        'email','first_name','last_name','phone_number'
+        'email','authy_id','first_name','last_name','phone_number'
     ];
 
     protected $hidden = [

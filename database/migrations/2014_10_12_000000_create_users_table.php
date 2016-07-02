@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             
             # Attributes
+            $table->string('authy_id');
             $table->string('first_name', 500);
             $table->string('last_name', 500);
             $table->string('email')->unique();
