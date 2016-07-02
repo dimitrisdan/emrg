@@ -193,6 +193,7 @@ class UserController extends Controller
             $sms_response = Curl::to('https://api.authy.com/protected/json/sms/'.$user->authy_id.'?api_key=KShA2sDrQupg8zjTYRPpbeKU3Yvq69cz')
                 ->get();
 
+            
             $json_sms = json_decode($sms_response, true);
             if (!$json_sms['success']){
 //            echo '<pre>paok' . print_r($json_sms, true) . '</pre>';
