@@ -46,4 +46,8 @@ class Patient extends Model
     {
         return $this->belongsToMany('App\MedicalAlert','patient_medical_alerts','patient_id', 'medicalalert_id');
     }
+    public function patients()
+    {
+        return $this->belongsToMany('App\Doctor','policies','patient_id','doctor_id');
+    }
 }

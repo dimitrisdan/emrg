@@ -66,8 +66,10 @@ class PatientController extends Controller
         $patient->patient_gender = $request['patient_gender'];
         $patient->patient_insurance = Crypt::encrypt($request['patient_insurance']);
         $patient->update();
-        
-        return view('dashboard');
+
+        $data = ['patient' => $patient];
+
+        return view('dashboard', $data);
     }
     
     /**

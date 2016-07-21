@@ -115,8 +115,7 @@ class UserController extends Controller
         $user->phone_country_code = '45';
         $user->password = bcrypt($request['password']);
         $user->save();
-
-
+        
         $role = Role::where('name', '=', $request['role'])->first();
         $user->attachRole($role->id);
 

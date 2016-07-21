@@ -20,7 +20,7 @@
                             <td>{{$value['name']}}</td>
                             <td>{{$value['profession']}}</td>
                             <td>
-                                <form class="form-inline" role="form" action="{{ route('home') }}" method="post">
+                                <form class="form-inline" role="form" action="{{ route('policy.create',[ 'patient_id' => Session::get('patient_id') ,'doctor_id'=> $value['id']]) }}" method="GET">
                                     <input type="hidden" name="_token" value="{{ Session::token() }}">
                                     <button type="submit" class="btn btn-primary pull-right">Share Records</button>
                                 </form>

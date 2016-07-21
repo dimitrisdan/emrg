@@ -197,7 +197,7 @@ Route::group(['middleware' => 'web'], function () {
         'as' => 'allergy.delete',
         'middleware' => ['auth','role:pat', 'permission:edit-patient']
     ]);
-    
+
     /*
    |--------------------------------------------------------------------------
    | Medical Alert Routes
@@ -213,6 +213,17 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'MedicalAlertController@deleteMedicalAlert',
         'as' => 'medicalalert.delete',
         'middleware' => ['auth','role:pat', 'permission:edit-patient']
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Policy Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/policy/{patient_id}/{doctor_id}', [
+        'uses' => 'PolicyController@getCreatePolicy',
+        'as' => 'policy.create',
+        'middleware' => ['auth','role:pat']
     ]);
 
 });
