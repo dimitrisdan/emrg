@@ -37,8 +37,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/python', function () {
         return view('python.fingerprint');
     })->name('python');
-    
-    Route::post('/signup', [
+
+    Route::get('/signup', [
         'uses' => 'UserController@postSignUp',
         'as' => 'signup',
     ]);
@@ -47,6 +47,15 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'UserController@postSignIn',
         'as' => 'signin',
     ]);
+
+    Route::post('/forgot-password', [
+        'uses' => 'UserController@postForgotPassword',
+        'as' => 'forgot-password',
+    ]);
+//    Route::post('/signin2', [
+//        'uses' => 'UserController@postSignIn2',
+//        'as' => 'signin',
+//    ]);
     
     Route::get('/logout', [
         'uses' => 'UserController@getLogout',

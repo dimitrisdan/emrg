@@ -65,12 +65,12 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
             </form>
             <br>
-            <p style="color: grey">
-                Accounts for testing <br>
-                Patient: ij@gmail.com, test<br>
-                Doctor: mikedoc@hospital.com, test<br>
-                Admin: admin@gmail.com , admin <br>
-            </p>
+            {{--<p style="color: grey">--}}
+                {{--Accounts for testing <br>--}}
+                {{--Patient: ij@gmail.com, test<br>--}}
+                {{--Doctor: mikedoc@hospital.com, test<br>--}}
+                {{--Admin: admin@gmail.com , admin <br>--}}
+            {{--</p>--}}
         </div>
     </div>
 @endsection

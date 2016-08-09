@@ -10,7 +10,12 @@
         "webpatser/laravel-uuid": "2.*",
         "zizaco/entrust": "5.2.x-dev",
         "srmklive/authy": "^0.4.0",
-        "ixudra/curl": "6.*"
+        "ixudra/curl": "6.*",
+        "laravelcollective/html": "5.2.",
+        "cartalyst/sentinel": "2.0.",
+        "cviebrock/eloquent-sluggable": "dev-master",
+        "cviebrock/eloquent-taggable": "~2.0.0",
+        "yajra/laravel-datatables-oracle": "~5.0"
 
     },
     "require-dev": {

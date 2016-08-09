@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-
+use App\Policy;
+use DB;
 
 /**
  * Class PatientController
@@ -32,10 +33,13 @@ class PatientController extends Controller
         //Validation
 
         $all_doctors = Doctor::all();
+        $shared_doctors = DB::table('policies')->select('doctor_id')->where('patient_id', '=', Session::get('patient_id'))->get();
+
         $doctors=[];
 
         foreach ($all_doctors as $doctor)
         {
+
             $user = User::find($doctor->user_id);
             $doctors[$user->email] = [
                 'id' => $doctor->doctor_id,
@@ -43,8 +47,19 @@ class PatientController extends Controller
                 'profession' => $doctor->profession
             ] ;
         }
+        $shared_doctors_ids = array();
+        foreach($shared_doctors as $item )
+        {
+            $id = get_object_vars($item);
+            array_push($shared_doctors_ids, $id['doctor_id']);
+        }
+//        print_r($shared_doctors);
+//        echo '<br>';
+//        print_r($shared_doctors_ids);
+
         $data = [
-            'doctors' => $doctors
+            'doctors' => $doctors,
+            'shared_doctor_ids' => $shared_doctors_ids
         ];
         
         return view('dashboard.policies',$data);

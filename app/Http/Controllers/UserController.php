@@ -20,6 +20,10 @@ use Ixudra\Curl\Facades\Curl;
  */
 class UserController extends Controller
 {
+    public function postForgotPassword(Request $request)
+    {
+        
+    }
     public function checkRolesToken(Request $request)
     {
         $user = Auth::user();

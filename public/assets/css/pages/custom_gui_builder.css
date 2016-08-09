@@ -1,0 +1,40 @@
+.chk-align {
+    padding-right: 10px;
+}
+.chk-label-margin {
+    margin-left: 5px;
+}
+.required {
+    color: red;
+    padding-left: 5px;
+}
+body > .header{
+    top: -20px;
+}
+.btn-success:active, .btn-success:focus{
+    background-color: #01BC8C;
+}
+.panel-heading{
+    padding: 1px 15px;
+}
+
+.alert{
+    padding: 7px;
+    margin-bottom: 0;
+    font-size: 15px;
+}
+.alert-warning{
+    background-color: #F89A14;
+}
+.div_gnr_rst{
+    padding:15px 15px;
+    text-align: right;
+}
+
+.btn_generate{
+    border-color: transparent;
+    padding-left: 10px;
+}
+.margtop {
+    margin-top: 7px;
+}
